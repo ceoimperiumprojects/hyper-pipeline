@@ -35,7 +35,13 @@ Priority:
 
 ### Step 2b: Brand Brainstorm (if no brand exists)
 
-Integrated from brand-voice wizard. Ask ONE section at a time:
+**Mode-aware behavior:**
+- **Auto mode (/hp-auto):** Auto-generate brand from spec — pick industry-appropriate archetype, colors from color psychology, professional voice defaults. Save immediately. No questions.
+- **Collab mode (/hp-go) for existing projects:** Skip brand entirely — match existing project style.
+- **Collab mode (/hp-go) for new projects:** Run brand wizard interactively (below).
+- **Hackathon mode:** Quick brand — ask archetype + primary color only, auto-fill rest.
+
+Integrated from brand-voice wizard. In collab/standalone mode, ask ONE section at a time:
 
 **Target Audience:**
 - Who are they? Demographics, psychographics
@@ -159,16 +165,25 @@ For each sprint, define EXACT testable behaviors:
 - "When [error], user sees [friendly message]"
 - Hard fail conditions
 
-### Step 8: Front-Load Questions (Auto Mode Only)
-In auto mode, ask ALL questions NOW before execution starts:
-- Brand questions (if no brand exists)
-- "Treba li lead gen? Koji kriterijumi?"
-- "Treba li content? Koje platforme?"
-- "Treba li landing page?"
-- "Treba li outreach?"
-- "Design: Stitch MCP ili ručno?"
+### Step 8: Scope Resolution (Mode-Dependent)
 
-After this step: ZERO questions during execution.
+**In /hp-auto mode — AUTO-INFER from spec:**
+Do NOT ask questions. Extract all answers from the spec itself:
+- Brand: auto-generate from product description (see Step 2b auto mode)
+- Lead gen: YES if spec mentions "leads", "outreach", "sales" — infer criteria from target audience
+- Content: YES if spec mentions "LinkedIn", "posts", "content", "marketing"
+- Landing page: YES if spec mentions "landing", "launch", "website"
+- Outreach: YES if spec mentions "outreach", "email", "leads", "sales"
+- Design: check Stitch MCP availability automatically (no question needed)
+- If spec is ambiguous on a point, use the most reasonable default and note the assumption in PLAN.md under "## Assumptions"
+
+After this step: ZERO questions during execution. Pure autonomous.
+
+**In /hp-go mode — ASK at Decision Point 1:**
+Include scope questions in the plan presentation. User reviews plan + scope together.
+
+**In hackathon mode — MINIMIZE:**
+Only essential: "Koji AI pristup?" and "Koji je golden path za demo?" Everything else auto-inferred from theme.
 
 ## Output Files
 

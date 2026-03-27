@@ -18,6 +18,23 @@ Implements features from the sprint contract one at a time, maintaining a workin
 
 From Anthropic's Harness Design: "The one-feature-at-a-time approach worked well for scope management." Build incrementally. Test as you go. Never break the build.
 
+## Pre-Build Safety (Existing Projects)
+
+Before building ANY feature on an existing project:
+```bash
+# 1. Create feature branch (if not already on one)
+git checkout -b hp/$(echo "$FEATURE" | tr ' ' '-' | tr '[:upper:]' '[:lower:]') 2>/dev/null
+
+# 2. Baseline test — run existing tests to confirm clean state
+npm test 2>/dev/null || npx vitest run 2>/dev/null || python -m pytest 2>/dev/null
+# Record pass/fail count for regression comparison later
+
+# 3. Check git status — no uncommitted changes
+git status --short
+```
+
+If baseline tests fail: STOP. Report to user. Do not build on a broken codebase.
+
 ## Process
 
 ### For Each Feature:
@@ -57,7 +74,7 @@ If a feature isn't working after 45 minutes:
 - Error handling for all async operations
 - Loading states for UI
 - Real data, never lorem ipsum
-- Follow `.stitch/DESIGN.md` for visual decisions
+- Follow `.hyper/brand.md` for visual decisions (colors, fonts, spacing). Also check `.stitch/DESIGN.md` and `docs/DESIGN-SPEC.md` if they exist
 
 ### Self-Evaluation Before Handoff
 Before marking sprint complete:

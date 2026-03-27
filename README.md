@@ -55,37 +55,39 @@ You: *wakes up* "holy shit it actually worked"
 
 Give it a spec. Sleep. Wake up to everything built.
 
-All questions are **front-loaded** — asked ONCE at the start. After that, **zero interrupts**. Pure execution.
+**Zero questions, zero interrupts.** Everything is auto-inferred from your spec. Brand auto-generated. Design auto-detected (Stitch MCP → Stitch Skills → build from spec). Context compaction at phase transitions for long runs.
 
 ```
 /hp-auto docs/MY-IDEA.md
 ```
 
-**What it builds:**
-- Working app (backend → design → frontend + AI)
-- Brand identity (colors, fonts, archetype, tone-of-voice)
-- QA tested (Playwright + visual validation on every screen)
-- 500+ scraped leads with BANT qualification
-- 3 LinkedIn posts with Remotion-generated branded images
-- 3-email cold outreach sequence
-- Landing page
-- 12-slide pitch deck (PPTX + MP4 demo video)
+**8-phase flow:**
+1. Codebase scan (existing project support)
+2. Plan + brand + research (auto-inferred from spec)
+3. Build backend
+4. Design (auto-detects: Stitch MCP → Stitch Skills → build from spec)
+5. Build frontend + AI
+6. Eval (static + Playwright + visual audit) → fix loop (max 3x)
+7. GTM (content, leads, outreach, landing page, logo)
+8. Present (slides, demo script, demo video) → AUTO-SUMMARY.md
 
 ### `/hp-go` — Collaborative
 
-You drive. Claude executes. You make 3 key decisions:
+You drive. Claude executes. **3 key decisions, everything else is auto.**
 
 ```
 /hp-go "add real-time notifications to my app"
 ```
 
-| Decision Point | What you decide |
-|---------------|----------------|
-| Plan Review | Approve scope, features, sprint contracts |
-| Design Review | Approve visual direction (Stitch MCP or manual) |
-| Eval Review | Accept quality or request fixes |
+| Decision Point | When | What you decide |
+|---------------|------|----------------|
+| 1. Plan Review | After codebase scan | Approve scope, features, sprint contracts |
+| 2. Design Review | After backend build | "Stitch MCP ili ručno?" → approve visual direction |
+| 3. Eval Review | After frontend build | Accept quality or request fixes |
 
-Everything between decision points is **fully autonomous** — you're involved ~10% of the time.
+**Git safety for existing projects:** Creates feature branch before building. Runs existing tests before AND after. Merge on accept, branch preserved on reject.
+
+**Smart design flow:** Asks "Stitch MCP ili ručno?" — if ručno, asks detailed UI questions (screens, flow, osećaj, layout) and generates comprehensive DESIGN-SPEC.md. Design review happens AFTER backend (real data shapes) and BEFORE frontend build.
 
 **Best for existing projects.** Scans your codebase, respects your patterns, reuses your components.
 
@@ -155,7 +157,7 @@ The Evaluator is **skeptical by default**. It doesn't approve mediocre work. It 
 | **plan** | Expands a 1-sentence prompt into a full product spec with brand identity, sprint contracts, and testable acceptance criteria |
 | **build** | Builds features one at a time with TDD inside (RED→GREEN→REFACTOR). 45-minute rule: stuck? simplify and move on |
 | **eval** | Four-phase QA: static analysis → Playwright runtime testing → **visual audit** (multimodal) → grading with hard fail conditions |
-| **design** | Google Stitch 2.0 integration — MCP automatic or manual design spec. UI timing: backend first, design after, frontend last |
+| **design** | Smart UI workflow — auto-detects Stitch MCP and [Stitch Skills](https://github.com/google-labs-code/stitch-skills). In collab: asks preference + detailed UI questions. In auto: detects best tool. Always: backend first, design after, frontend last |
 | **present** | Remotion-first visual engine — LinkedIn images, carousels, demo videos, pitch decks. Exports to PNG, MP4, PPTX |
 | **research** | 9-phase competitive intelligence framework using imperium-crawl (YouTube transcripts, Reddit mining, batch scraping) |
 | **brand** | Multi-brand registry with 12 archetypes, 10-color palette, typography, tone-of-voice. Hybrid storage: project-level + central registry |
@@ -255,11 +257,10 @@ You: /hp-auto "Build a SaaS platform for monitoring competitor prices.
       Target: e-commerce managers in the region.
       Need: landing page, 3 LinkedIn posts, lead list."
 
-Phase 0 — Gathering (only interactive part):
-  ✋ Brand: "PriceHawk" — Innovator archetype, teal + orange palette
-  ✋ Leads: "e-commerce companies, 50-500 employees, US + EU"
-  ✋ Content: "LinkedIn, professional tone"
-  ✋ Design: "Stitch MCP automatic"
+Phase 0 — Auto-Infer (zero questions):
+  🤖 Brand: auto-generated "PriceHawk" — Innovator archetype, teal + orange
+  🤖 Scope: inferred from spec — leads YES, content YES, landing YES
+  🤖 Design: Stitch MCP detected → auto-use
 
 Phase 1+ — Pure execution (zero interrupts):
   🤖 Research: 12 competitors found, gap identified
@@ -319,6 +320,7 @@ Hyper-Pipeline orchestrates these tools (all optional — install what you need)
 | [**Remotion**](https://github.com/remotion-dev/remotion) | Programmatic visual rendering: branded LinkedIn images, carousel slides, demo videos, animated presentations — all from code | `npx create-video@latest` |
 | [**Playwright**](https://github.com/microsoft/playwright) | Browser automation for the Evaluator: navigates your app, clicks everything, screenshots every page, tests edge cases | `npx playwright install` |
 | [**Stitch MCP**](https://github.com/davideast/stitch-mcp) | Google's AI UI design tool via MCP: generate screens from text, extract design systems, scaffold React components | `npx @_davideast/stitch-mcp init` |
+| [**Stitch Skills**](https://github.com/google-labs-code/stitch-skills) | Design + React component generation skills for Stitch: `stitch-design` for UI generation, `react:components` for Tailwind component scaffolding | `npx skills add google-labs-code/stitch-skills --global` |
 | **ffmpeg** | Audio/video processing: extract audio, convert formats, generate thumbnails, add captions | `apt install ffmpeg` |
 
 ### Visual Generation Decision Tree
@@ -346,6 +348,7 @@ Need to process/convert media?
 | [**Anthropic Harness Design**](https://www.anthropic.com/engineering/harness-design-long-running-apps) | Planner/Generator/Evaluator three-agent architecture, GAN-inspired feedback loop, sprint contracts, 4 grading criteria, skeptical evaluator, visual validation |
 | [**Everything Claude Code**](https://github.com/affaan-m/everything-claude-code) | Agent YAML format, hook system, skill structure, TDD workflow, verification loop, code reviewer patterns (50K+ stars) |
 | [**Google Stitch 2.0**](https://stitch.withgoogle.com/) | AI-native UI design with MCP integration, DESIGN.md format, React component scaffolding |
+| [**Stitch Skills**](https://github.com/google-labs-code/stitch-skills) | `stitch-design` + `react:components` — design generation and React/Tailwind scaffolding from Stitch designs |
 
 ---
 
@@ -392,7 +395,7 @@ hyper-pipeline/
 
 ## Benchmark
 
-Tested with 3 eval scenarios across all modes:
+### Iteration 1: Planning Phase (Dry Run)
 
 | Eval | Mode | Assertions | Result |
 |------|------|------------|--------|
@@ -401,7 +404,26 @@ Tested with 3 eval scenarios across all modes:
 | Hackathon Prep | hackathon | 5/5 | **PASS** |
 | **Total** | | **16/16** | **100%** |
 
-With skill vs without: plan quality increased from generic 1-file plan to 6+ structured artifacts with 51 testable behaviors, brand identity, tool-aware sprints, and GTM deliverables.
+### Iteration 2: E2E Artifact Generation + Flow Validation
+
+| Test | What | Result |
+|------|------|--------|
+| Trigger Routing | 20 prompts (10 true pos, 10 true neg) | **20/20 PASS** |
+| Brand Wizard | 10 colors, 7 sections, WCAG AA | **PASS** |
+| Planning | 46 testable behaviors, 22 hard fails | **PASS** |
+| Stitch 2.0 Fallback | 8 sections, ASCII wireframes | **PASS** |
+| Eval Report | Skeptical evaluator, file:line refs | **PASS** |
+| Content Creation | 3 posts, 3 types, algorithm-optimized | **PASS** |
+| Outreach | 3-email sequence, BANT scoring | **PASS** |
+| Validation | TAM/SAM/SOM, Mom Test, CONDITIONAL GO | **PASS** |
+| Presentation | 14-slide HTML, keyboard nav, zero-dep | **PASS** |
+| Error Handling | 3 HIGH gaps found and **FIXED** | **PASS** |
+| /hp-auto Flow Trace | All phase transitions verified | **PASS** |
+| /hp-go Flow Trace | 3 decision points, git safety | **PASS** |
+| Hackathon Flow Trace | 8 phases, timing validated | **PASS** |
+| **Overall** | **16 artifacts generated, 40+ checks** | **A+ (97%)** |
+
+16 fixes applied across 11 skill files after flow testing.
 
 ---
 

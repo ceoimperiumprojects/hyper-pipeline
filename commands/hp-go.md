@@ -20,26 +20,42 @@ You drive. Claude executes. Together you're unstoppable.
 ┌─ YOU ─────────────────────────────────────────────────────┐
 │                                                           │
 │  1. Describe what you want                                │
-│  2. Review and approve the plan    ← DECISION POINT ✋    │
-│  3. (optional) Approve design      ← DECISION POINT ✋    │
-│  4. Watch build progress, intervene if needed             │
-│  5. Review eval results            ← DECISION POINT ✋    │
-│  6. Decide: fix, accept, or iterate                       │
+│  2. Review and approve the plan    ← DECISION POINT 1 ✋  │
+│  3. Watch backend build, approve design ← DECISION 2 ✋   │
+│  4. Watch frontend build                                  │
+│  5. Review eval results            ← DECISION POINT 3 ✋  │
+│  6. Decide: fix, accept, or merge                         │
 │                                                           │
 └───────────────────────────────────────────────────────────┘
 
 ┌─ CLAUDE ──────────────────────────────────────────────────┐
 │                                                           │
-│  1. 🤖 Scans codebase (auto)                             │
-│  2. 🤖 Generates plan + contract (auto)                   │
-│  3. ✋ Presents plan → WAITS for your approval            │
-│  4. 🤖 Builds features one by one (auto)                  │
-│     └→ Shows progress: "Feature 3/7: Adding API..."      │
-│  5. 🤖 Evaluates with Playwright (auto)                   │
-│  6. ✋ Shows EVAL-REPORT → WAITS for your decision        │
-│     └→ "Fix bugs and re-eval?" / "Accept and continue?"  │
+│  0. 🤖 Scans codebase (auto)                             │
+│  1. 🤖 Generates plan + contract (auto)                   │
+│  2. ✋ Presents plan → WAITS for your approval            │
+│  3. 🤖 Creates feature branch (auto)                      │
+│  4. 🤖 Runs existing tests (baseline check)               │
+│  5. 🤖 Builds BACKEND features (auto)                     │
+│  6. 🤖 Generates design spec (auto)                       │
+│  7. ✋ Presents design → WAITS for approval               │
+│  8. 🤖 Builds FRONTEND features (auto)                    │
+│  9. 🤖 Evaluates with Playwright (auto)                   │
+│  10. 🤖 Runs existing tests AGAIN (regression check)      │
+│  11. ✋ Shows EVAL-REPORT → WAITS for your decision       │
+│      └→ "Fix bugs?" / "Accept and merge?"                │
+│  12. 🤖 Merges feature branch → main (if accepted)        │
 │                                                           │
 └───────────────────────────────────────────────────────────┘
+
+## Git Safety (Existing Projects)
+
+For existing projects, ALWAYS:
+1. Create a feature branch before building: `git checkout -b hp/[feature-name]`
+2. All commits go to the feature branch, never directly to main
+3. Run existing tests BEFORE building (baseline) and AFTER eval (regression)
+4. If rejected at any decision point: `git checkout main` — branch preserved for reference
+5. If accepted: merge feature branch to main
+```
 ```
 
 ## Decision Points (where YOU are involved)
@@ -50,11 +66,24 @@ After Planner generates PLAN.md + SPRINT-CONTRACT.md:
 - You can: **Approve** / **Modify** (change scope, priorities) / **Reject** (start over)
 - Claude asks: "Plan izgleda ovako. Šta kažeš?"
 
-### ✋ Decision 2: Design Review (optional)
-If design phase is needed:
-- Claude asks: "Stitch MCP ili ručno?"
-- If ručno: Claude gives you DESIGN-SPEC.md, you create in Stitch
-- If MCP: Claude shows generated designs for approval
+### ✋ Decision 2: Design Review (after backend, before frontend)
+**Timing:** This happens AFTER backend build, BEFORE frontend build.
+This ensures designs are based on real data shapes and API responses.
+
+Claude first asks: **"Stitch MCP ili ručni dizajn?"**
+
+**If Stitch MCP:**
+- Claude generates screens via Stitch MCP tools
+- Presents screenshots + generated React components
+- User reviews and approves visual direction
+
+**If ručno (or Stitch not available):**
+- Claude asks detailed UI questions (screens, flow, colors, osećaj, layout, specijalni elementi)
+- Generates comprehensive `docs/DESIGN-SPEC.md` with screen layouts, component inventory, interaction patterns
+- Presents spec to user
+- User can: **Approve** (proceed to frontend) / **Modify** (update sections) / **Open Stitch** (stitch.withgoogle.com, design manually, bring back HTML/CSS)
+
+After approval, frontend build begins using the approved design spec + `.hyper/brand.md`
 
 ### ✋ Decision 3: Eval Review
 After Evaluator grades the build:

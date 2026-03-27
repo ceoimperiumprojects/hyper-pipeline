@@ -23,7 +23,18 @@ Priority:
 3. Nothing exists → run Brand Wizard
 ```
 
-## Brand Wizard (7 Steps)
+## Auto Mode Override
+
+In `/hp-auto` mode, **skip all questions**. Auto-generate brand identity based on:
+- Product name and description from spec
+- Industry-appropriate archetype selection (use color psychology table)
+- Default voice character: professional, moderate (5-6/10 on all spectra)
+- Save immediately to `.hyper/brand.md` + `~/.hyper/brands/[name].md` without user confirmation
+- Note in PLAN.md: "Brand auto-generated from spec. Run brand wizard manually to customize."
+
+In `/hp-go` mode for **existing projects adding a feature**, skip brand wizard entirely — the feature should match the existing project's visual style. Only run brand wizard if user explicitly asks for brand work.
+
+## Brand Wizard (7 Steps — Collab/Standalone Only)
 
 Ask ONE section at a time. Don't dump all questions.
 

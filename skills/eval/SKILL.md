@@ -36,10 +36,31 @@ The Evaluator is SKEPTICAL. It does not approve mediocre work.
 - UI broken on desktop
 - Data doesn't persist when it should
 
+## Pre-Flight Check
+
+Before evaluating, verify the app is actually running:
+
+```bash
+# 1. Read BUILD-LOG.md for the start command and port
+grep -E "port|PORT|localhost|start" docs/BUILD-LOG.md
+
+# 2. Check if the app process is running
+lsof -i :3000 2>/dev/null || lsof -i :5173 2>/dev/null || lsof -i :8080 2>/dev/null
+
+# 3. Try to reach the app
+curl -s -o /dev/null -w "%{http_code}" http://localhost:3000 2>/dev/null
+```
+
+**If app is NOT running:**
+1. Try to start it: read `package.json` scripts, run `npm run dev` or equivalent
+2. Wait up to 15 seconds for startup
+3. Re-check with curl
+4. If still not running → write EVAL-REPORT with "BLOCKED — App failed to start" and include the error output. Do NOT proceed with Playwright testing against a dead server.
+
 ## Evaluation Process
 
 1. Read `docs/SPRINT-CONTRACT.md` for acceptance criteria
-2. Start app (read `docs/BUILD-LOG.md` for start command)
+2. **Run pre-flight check** (see above) — confirm app responds before proceeding
 3. Navigate every page via Playwright MCP
 4. Screenshot each page
 5. Test every sprint contract behavior (PASS/FAIL each)

@@ -13,6 +13,18 @@ Systematic 9-phase framework for mapping ANY technology market from zero to comp
 - `/hp-plan` needs market context
 - `/hp-auto` includes research in scope
 
+## Auto Mode Research Scope
+
+In `/hp-auto`, run **abbreviated research** to avoid context exhaustion:
+- Phase 1: Ecosystem Mapping — top 5 competitors only (not 20)
+- Phase 3: Feature Matrix — top 5 only
+- Phase 7: Pricing Benchmark — quick scan
+- Phase 9: Synthesis — 1-page summary
+- **Total target: 10-15 min of research, not 2+ hours**
+- Skip Phases 2, 4, 5, 6, 8 unless spec explicitly demands deep research
+
+In `/hp-go` or standalone: run full 9-phase framework if user requests.
+
 ## Tool Selection
 
 ### Tier 1: Quick (always available)

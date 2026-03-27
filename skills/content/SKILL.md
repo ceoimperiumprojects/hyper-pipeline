@@ -15,7 +15,21 @@ Create branded content for LinkedIn, carousels, and video. All visuals generated
 
 ## Brand Loading
 
-ALWAYS read `.hyper/brand.md` first. Apply brand colors, fonts, tone to ALL outputs.
+ALWAYS try to load brand identity. Resolution order:
+
+```
+1. .hyper/brand.md (project root) → use it
+2. ~/.hyper/brands/*.md (central registry) → ask user which brand
+3. Nothing found → use sensible defaults below, warn user
+```
+
+**Fallback defaults (when no brand exists):**
+- Colors: Primary #2563EB, Secondary #10B981, BG #0F172A, Text #F8FAFC
+- Fonts: Inter (body), Space Grotesk (heading), JetBrains Mono (accent)
+- Voice: Professional, direct, moderately casual (6/10)
+- Note in output: "⚠ No brand.md found — using defaults. Run brand wizard for custom identity."
+
+Apply brand colors, fonts, tone to ALL outputs.
 
 ## LinkedIn Post Framework
 

@@ -15,6 +15,20 @@ Cold email campaigns, lead generation, and sales pipeline building.
 
 ## Lead Generation
 
+### Tool Check
+
+Before starting lead gen, check which tools are available:
+
+```bash
+which imperium-crawl 2>/dev/null && echo "imperium-crawl: AVAILABLE" || echo "imperium-crawl: NOT INSTALLED"
+```
+
+**If imperium-crawl is NOT installed**, use these fallbacks:
+1. **WebSearch** — `WebSearch` tool for finding company directories and contact info
+2. **Manual sources** — Ask user for existing lead lists (CSV, CRM export, LinkedIn Sales Navigator export)
+3. **Public directories** — Guide user to APR.rs, Infostud, LinkedIn company search
+4. **Note in output:** "⚠ imperium-crawl not available — leads sourced via web search. Install `npm i -g imperium-crawl` for automated bulk scraping."
+
 ### Using imperium-crawl
 ```bash
 # Search for potential leads

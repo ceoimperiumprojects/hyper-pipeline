@@ -49,13 +49,39 @@ Runs the ENTIRE pipeline autonomously in a loop:
    🤖 Re-runs EVAL
    🤖 Loops until PASS or max iterations
 
-6. DONE
+6. GTM (if plan includes content/outreach/landing)
+   🤖 Content creation (LinkedIn posts, carousels via Remotion or fallback)
+   🤖 Lead generation (imperium-crawl or WebSearch fallback)
+   🤖 Cold email sequences
+   🤖 Landing page polish
+   🤖 Logo generation (chatgpt-py)
+   🤖 Visual audit on ALL GTM outputs (evaluator Phase C)
+
+7. PRESENT (if plan includes presentation)
+   🤖 HTML slides (zero-dep) or Remotion slides
+   🤖 Demo script with timing
+   🤖 Optional demo video
+
+8. DONE
    🤖 Final commit with summary
    🤖 Writes docs/AUTO-SUMMARY.md with:
       - What was built
       - What tests pass
       - EVAL scores
+      - GTM outputs (leads, posts, emails)
       - Any deferred items (BLOCKERS.md)
+
+## Context Management (Auto Mode)
+
+Long auto runs risk context exhaustion. Compact at these transitions:
+
+```
+After Phase 2 (PLAN) → compact, re-read: PLAN.md, SPRINT-CONTRACT.md, brand.md
+After Phase 4 (EVAL) → compact, re-read: PLAN.md, EVAL-REPORT.md, brand.md
+After Phase 6 (GTM)  → compact, re-read: PLAN.md, AUTO-SUMMARY draft
+```
+
+After each compaction: always re-read `docs/PLAN.md` and `.hyper/brand.md` as minimum context.
 ```
 
 ## Existing Project Support
