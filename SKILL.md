@@ -1,6 +1,6 @@
 ---
 name: hyper-pipeline
-description: 'AI execution engine — activated ONLY via /hp-* commands. Do NOT auto-trigger on keywords. Commands: /hp-auto (full autonomous), /hp-go (collaborative), /hp-plan, /hp-build, /hp-eval, /hp-design, /hp-present.'
+description: 'AI execution engine — activated ONLY via /hp-* commands. Do NOT auto-trigger on keywords. Commands: /hp-auto (full autonomous), /hp-go (collaborative), /hp-hackathon (24h sprint), /hp-plan, /hp-build, /hp-eval, /hp-design, /hp-present.'
 user-invocable: false
 ---
 
@@ -30,7 +30,7 @@ Match user intent to the right mode and sub-skills:
 |-----------|------|---------|
 | "odradi sve", "full auto", "evo spec", "napravi ovo" | Auto | `/hp-auto` |
 | "hajde zajedno", "pomozi mi", "treba mi feature" | Collab | `/hp-go` |
-| "hakaton", "24h sprint", "hackathon" | Hackathon | `/hp-auto --hackathon` |
+| "hakaton", "24h sprint", "hackathon" | Hackathon | `/hp-hackathon` |
 | "napravi plan", "spec this out" | Plan only | `/hp-plan` |
 | "build this", "kodiraj", "implementiraj" | Build only | `/hp-build` |
 | "testiraj", "QA", "proveri" | Eval only | `/hp-eval` |
