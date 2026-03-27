@@ -1,0 +1,23 @@
+{
+  "skill_name": "hyper-pipeline",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Evo ti spec: napravi SaaS platformu za monitoring cena konkurencije. AI treba da prati cene na sajtovima konkurenata, šalje alerte kada se cena promeni, i generiše nedeljne izveštaje sa trendovima. Treba mi i landing page i 3 LinkedIn posta za launch. Target su e-commerce menadžeri u regionu. /hp-auto",
+      "expected_output": "Pipeline runs full auto: gathers brand/scope questions upfront, generates PLAN.md with brand section and sprint contracts, builds backend then frontend+AI, runs visual validation, creates landing page, generates LinkedIn posts with Remotion images, produces AUTO-SUMMARY.md",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Radim na SimpleSurplus projektu u ~/Desktop/Projekti/simple-surplus/. Treba mi lead scoring feature — kad unesem property adresu i value, AI treba da oceni lead od 1 do 100 na osnovu lokacije, vrednosti i tipa vlasnika. Mora da radi end-to-end sa testovima. Hajde zajedno da odradimo.",
+      "expected_output": "Pipeline runs in collab mode: scans existing codebase, generates plan respecting existing patterns, presents plan for review, builds feature by feature with TDD, runs evaluator with visual audit, presents EVAL-REPORT for user decision",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Imam hakaton za 2 dana u Crnoj Gori, tema je AI x Sustainability, Western Balkans fokus, 24 sata, solo sam. Treba mi ceo pipeline spreman — od brainstorminga do prezentacije. Pomozi mi da se pripremim.",
+      "expected_output": "Pipeline activates hackathon mode: verifies setup (MCP, Stitch, Remotion), presents 8-phase timeline, helps brainstorm with research, generates HACKATHON-CLAUDE.md template, prepares repo structure, explains each phase and user involvement points",
+      "files": []
+    }
+  ]
+}

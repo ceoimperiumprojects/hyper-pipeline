@@ -1,0 +1,151 @@
+---
+description: Full autonomous pipeline. Give it a spec file or detailed description → it plans, builds, evaluates, fixes, and iterates until done. Zero user intervention needed. Works for new projects AND existing codebases.
+---
+
+# /hp-auto — Full Autonomous Mode
+
+Give it a spec and walk away. It does everything.
+
+## Usage
+
+```
+/hp-auto docs/SPEC.md              # From a spec file
+/hp-auto "Build a REST API for..."  # From a description
+/hp-auto                            # Reads docs/SPEC.md if exists
+```
+
+## What This Command Does
+
+Runs the ENTIRE pipeline autonomously in a loop:
+
+```
+1. CODEBASE SCAN (existing project support)
+   🤖 Reads entire codebase structure
+   🤖 Identifies patterns, stack, conventions, existing tests
+   🤖 Maps dependencies and architecture
+   🤖 Generates CODEBASE-CONTEXT.md (what exists, what to reuse)
+
+2. PLAN (hp-planner, opus/ultrathink)
+   🤖 Reads spec + codebase context
+   🤖 Generates PLAN.md respecting existing architecture
+   🤖 Generates SPRINT-CONTRACT.md with testable behaviors
+   🤖 NO USER INPUT — auto-approves plan
+
+3. BUILD (hp-generator, opus/high)
+   🤖 Feature by feature from contract
+   🤖 TDD: write test → implement → verify
+   🤖 Commit each feature
+   🤖 45-min rule auto-enforced (simplify and continue)
+   🤖 If build fails → auto-invoke build-error-resolver
+
+4. EVAL (hp-evaluator, opus/ultrathink)
+   🤖 Static analysis (tsc, lint, tests)
+   🤖 Runtime QA via Playwright
+   🤖 Grades 4 criteria, writes EVAL-REPORT.md
+
+5. FIX LOOP (max 3 iterations)
+   🤖 If EVAL fails → reads EVAL-REPORT
+   🤖 Fixes Critical and Major bugs
+   🤖 Re-runs EVAL
+   🤖 Loops until PASS or max iterations
+
+6. DONE
+   🤖 Final commit with summary
+   🤖 Writes docs/AUTO-SUMMARY.md with:
+      - What was built
+      - What tests pass
+      - EVAL scores
+      - Any deferred items (BLOCKERS.md)
+```
+
+## Existing Project Support
+
+When run on an existing project (not empty repo), the Codebase Scan step:
+
+1. **Reads project structure** — package.json, tsconfig, Dockerfile, etc.
+2. **Identifies stack** — React/Next/Vue, FastAPI/Express, PostgreSQL/SQLite, etc.
+3. **Maps existing patterns:**
+   - How are components organized?
+   - What state management is used?
+   - How are API endpoints structured?
+   - What testing framework and patterns?
+   - What styling approach (Tailwind, CSS modules, styled-components)?
+4. **Finds reusable code:**
+   - Existing utility functions
+   - Shared components
+   - API client setup
+   - Auth middleware
+   - Error handling patterns
+5. **Generates `docs/CODEBASE-CONTEXT.md`:**
+   ```markdown
+   # Codebase Context
+
+   ## Stack
+   - Frontend: Next.js 15, TailwindCSS, shadcn/ui
+   - Backend: Next.js API routes
+   - Database: Supabase (PostgreSQL)
+   - Testing: Vitest + Playwright
+
+   ## Conventions
+   - Components in src/components/[feature]/
+   - API routes in src/app/api/[route]/
+   - Shared types in src/types/
+   - Tests co-located with source files
+
+   ## Reusable
+   - src/lib/api-client.ts — fetch wrapper with auth
+   - src/components/ui/ — shadcn components
+   - src/hooks/useAuth.ts — auth hook
+
+   ## Patterns to Follow
+   - Server Components by default
+   - Zod validation on all inputs
+   - Error boundaries on route segments
+   ```
+
+The Generator then builds NEW features using EXISTING patterns — not reinventing the wheel.
+
+## Spec File Format
+
+The input spec can be any format. Simple is fine:
+
+```markdown
+# What I Want
+
+Add a dashboard page that shows:
+- Total leads count
+- Leads by status (pie chart)
+- Recent activity feed
+- AI-powered lead scoring summary
+
+Requirements:
+- Must use existing Supabase tables
+- Match current design system
+- Add E2E test for main flow
+```
+
+Or detailed PRD format — the Planner handles both.
+
+## When to Use
+
+- You have a clear spec and don't want to babysit
+- Overnight builds — start it, come back to results
+- Batch of tasks — run multiple /hp-auto in sequence
+- When you trust the pipeline to make good decisions
+
+## When NOT to Use
+
+- Vague requirements ("make it better")
+- Architecture-level decisions you want to make yourself
+- When you need to see intermediate results before continuing
+- → Use `/hp-go` instead for collaborative mode
+
+## Output
+
+When done, check:
+- `docs/PLAN.md` — What it planned
+- `docs/SPRINT-CONTRACT.md` — What it committed to
+- `docs/EVAL-REPORT.md` — Quality scores
+- `docs/AUTO-SUMMARY.md` — Full summary of what was done
+- `docs/BLOCKERS.md` — Anything it couldn't solve
+- `git log` — Feature-by-feature commit history

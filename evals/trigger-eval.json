@@ -1,0 +1,82 @@
+[
+  {
+    "query": "imam ideju za SaaS platformu za tracking cena konkurencije, hocu da to napravim od nule sa landing stranicom i lead gen-om, sve full auto brate",
+    "should_trigger": true
+  },
+  {
+    "query": "radim na existing projektu, treba mi nova feature za user notifications, real-time, sa testovima. hajde da to zajedno odradimo",
+    "should_trigger": true
+  },
+  {
+    "query": "hakaton je za 3 dana, tema je climate tech, 24 sata imam, solo. treba mi ceo pipeline od brainstorminga do prezentacije",
+    "should_trigger": true
+  },
+  {
+    "query": "ej treba mi plan za novu mobilnu aplikaciju za fitnes tracking, AI treba da analizira workout podatke i da preporuke. napravi mi detaljan spec sa sprint contractima",
+    "should_trigger": true
+  },
+  {
+    "query": "imam vec napravljen backend za SimpleSurplus, sad treba QA - testiraj sve sa playwright-om, proveri da li sve radi end to end, napravi eval report",
+    "should_trigger": true
+  },
+  {
+    "query": "treba mi brand identity za novi projekat - boje, fontovi, archetype, tone of voice, ceo vizuelni identitet. target su mladi developeri",
+    "should_trigger": true
+  },
+  {
+    "query": "napravi mi 3 linkedin posta za launch novog produkta, sa slikama, carousel i demo video. imam vec brand definisan u .hyper/brand.md",
+    "should_trigger": true
+  },
+  {
+    "query": "treba mi cold email kampanja za outreach - 500 leadova iz tech industrije, 3-email sekvenca, personalizovano. scrape podatke sa linkedin-a",
+    "should_trigger": true
+  },
+  {
+    "query": "hocu da validiram startup ideju pre nego sto pocnem da kodiram - market sizing, konkurencija, mom test pitanja, MVP scope",
+    "should_trigger": true
+  },
+  {
+    "query": "evo ti spec fajl docs/SPEC.md, odradi sve sam - build, test, deploy, content, leadovi - ja cu da spavam a ti radi. /hp-auto",
+    "should_trigger": true
+  },
+  {
+    "query": "popravi mi bug u login komponenti - kad kliknem submit dugme nista se ne desi, mislim da je problem u handleSubmit funkciji",
+    "should_trigger": false
+  },
+  {
+    "query": "kako da instaliram postgresql na ubuntu 24.04? treba mi za novi projekat",
+    "should_trigger": false
+  },
+  {
+    "query": "objasni mi razliku izmedju useEffect i useLayoutEffect u react-u, nikad mi nije bilo jasno kad koji da koristim",
+    "should_trigger": false
+  },
+  {
+    "query": "napravi mi python skriptu koja cita CSV fajl, filtrira redove gde je amount > 1000, i exportuje u novi CSV",
+    "should_trigger": false
+  },
+  {
+    "query": "imam git merge conflict u package.json, kako da ga resim? oba brancha su menjala dependencies",
+    "should_trigger": false
+  },
+  {
+    "query": "treba mi dockerfile za moj existing node.js projekat sa multi-stage build i health check endpoint",
+    "should_trigger": false
+  },
+  {
+    "query": "review-uj mi ovaj pull request - dodao sam novi API endpoint za user profiles, treba mi code review pre merge-a",
+    "should_trigger": false
+  },
+  {
+    "query": "napravi mi regex pattern koji matchuje email adrese ali ne .gov i .edu domene, treba za input validaciju",
+    "should_trigger": false
+  },
+  {
+    "query": "sta mislis o rust vs go za backend microservices? imam iskustva sa oba ali ne mogu da se odlucim za novi projekat",
+    "should_trigger": false
+  },
+  {
+    "query": "pomozi mi da napisem unit testove za ovu utility funkciju calculateDiscount, treba da pokrijem edge cases",
+    "should_trigger": false
+  }
+]

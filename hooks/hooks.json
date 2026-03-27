@@ -1,0 +1,39 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const c=i.tool_input?.content||i.tool_input?.new_string||'';const lines=c.split('\\n').length;if(lines>800){console.error('[HP] WARNING: File exceeds 800 lines ('+lines+'). Consider splitting.');} if(/console\\.log/.test(c)){console.error('[HP] WARNING: console.log detected. Remove before commit.');} console.log(d)})\""
+          }
+        ],
+        "description": "[Hyper-Pipeline] Quality gate: warn about large files and console.log"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "tool == \"Bash\" && tool_input.command matches \"git commit\"",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[HP] Feature committed. Check docs/SPRINT-CONTRACT.md for next feature.' >&2"
+          }
+        ],
+        "description": "[Hyper-Pipeline] Post-commit: remind to check sprint contract"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs');const d=new Date().toISOString().split('T')[0];const log='docs/SESSION-LOG.md';const entry='\\n## Session '+d+'\\nSession ended. Check docs/ for latest state.\\n';try{fs.mkdirSync('docs',{recursive:true});fs.appendFileSync(log,entry)}catch(e){}\""
+          }
+        ],
+        "description": "[Hyper-Pipeline] Save session marker on stop"
+      }
+    ]
+  }
+}

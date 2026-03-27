@@ -1,0 +1,15 @@
+{
+  "name": "hyper-pipeline",
+  "version": "1.0.0",
+  "description": "The ultimate AI execution engine. Planner→Generator→Evaluator feedback loop with visual validation, brand management, research, content, outreach, and Remotion visuals. Three modes: full auto, collaborative, hackathon sprint.",
+  "license": "MIT",
+  "keywords": ["pipeline", "planner", "generator", "evaluator", "hackathon", "harness-design", "visual-validation", "remotion", "brand", "startup", "content", "outreach", "lead-gen"],
+  "agents": [
+    "./agents/planner.md",
+    "./agents/generator.md",
+    "./agents/evaluator.md",
+    "./agents/presenter.md"
+  ],
+  "commands": ["./commands/"],
+  "skills": ["./skills/"]
+}
