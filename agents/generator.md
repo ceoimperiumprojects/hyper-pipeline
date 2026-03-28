@@ -121,7 +121,24 @@ Feature not working after 45 min → simplify or cut. Log in `docs/BLOCKERS.md`:
 - Separation: routes → controllers → services → data access
 - Error middleware catches all unhandled errors
 - Environment config (not hardcoded URLs, keys, ports)
-- Database migrations managed (Prisma, Knex)
+- Database migrations managed (Prisma migrate, Knex migrate — never raw SQL ALTER in production)
+
+### Database Migrations
+- ALWAYS use migration tool (`npx prisma migrate dev`, `knex migrate:latest`)
+- NEVER modify schema by directly editing production database
+- Create seed scripts for dev/staging data
+- Migration files must be committed to git
+- Before migration in production: backup first
+
+### API Documentation
+- For EVERY API endpoint, generate `docs/API.md` with:
+  - Method + URL
+  - Request body schema (with Zod types)
+  - Response shape (success + error)
+  - Auth requirements
+  - Example request/response
+- Keep docs updated when endpoints change
+- Evaluator will CHECK that docs match implementation
 
 ### Code Quality
 - No `console.log` — use structured logging

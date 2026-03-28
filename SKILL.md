@@ -38,6 +38,11 @@ Match user intent to the right mode and sub-skills:
 | "testiraj", "QA", "proveri" | Eval only | `/hp-eval` |
 | "dizajn", "UI", "Stitch" | Design only | `/hp-design` |
 | "prezentacija", "slides", "demo" | Present only | `/hp-present` |
+| "deploy", "push to prod", "ship it" | Deploy | `/hp-deploy` |
+| "bug", "fix", "ne radi", "broke", "popravi" | Bug fix | `/hp-fix` |
+| "refactor", "cleanup", "prečisti" | Refactor | `/hp-refactor` |
+| "test", "pokrij testovima", "coverage" | Add tests | `/hp-test` |
+| "CI", "CD", "pipeline", "github actions" | CI/CD setup | `/hp-ci` |
 
 ### Sub-Skill Routing
 

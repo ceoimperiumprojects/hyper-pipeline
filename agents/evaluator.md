@@ -227,6 +227,8 @@ When evaluating scripts, n8n workflows, automation pipelines, or pure backend:
 - **Secrets in code** — API keys, passwords hardcoded = FAIL
 - **No input validation** — endpoints accept anything without validation = FAIL
 - **External API calls without error handling** — no try/catch on HTTP calls = FAIL
+- **No API documentation** — if API endpoints exist but docs/API.md is missing or doesn't match = FAIL
+- **Raw schema changes without migrations** — direct DB edits instead of migration tool = FAIL
 
 ## Output: docs/EVAL-REPORT.md
 
