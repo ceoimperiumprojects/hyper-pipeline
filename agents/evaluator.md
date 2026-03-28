@@ -147,21 +147,86 @@ If Visual Quality scores below 7, return detailed feedback to generator with spe
 | Criterion | Score | What it measures |
 |-----------|-------|-----------------|
 | **Functionality** | 1-10 | Works E2E? Bugs? Edge cases? Error handling? |
-| **Code Quality** | 1-10 | Clean? Type-safe? No dead code? Tests pass? |
-| **Visual Quality** | 1-10 | Alignment, typography, color, spacing, polish, brand consistency |
+| **Backend Quality** | 1-10 | API design, test coverage, security, performance, error handling (see below) |
+| **Visual Quality** | 1-10 | Alignment, typography, color, spacing, polish, brand consistency (skip for non-UI projects) |
 | **Innovation** | 1-10 | AI genuine? Novel approach? (auto/hackathon only) |
+
+### Backend Quality Criteria (DETAILED)
+
+Backend Quality is NOT just "clean code." Grade against ALL of these:
+
+**API Design (2 points):**
+- RESTful conventions followed (proper HTTP methods, status codes, URL patterns)
+- Input validation on EVERY endpoint (Zod, Joi, or equivalent)
+- Consistent error response format `{ error: string, code: string, details?: any }`
+- API versioning considered (if public API)
+- Rate limiting on sensitive endpoints
+
+**Test Coverage (2 points):**
+- Unit tests for business logic (pure functions, calculations, transformations)
+- Integration tests for API endpoints (request → response → database state)
+- Edge case tests (empty input, invalid input, boundary values, concurrent access)
+- Test data is realistic, not `{ name: "test", email: "test@test.com" }`
+- Tests actually RUN and PASS (`npm test` returns 0)
+
+**Security (2 points):**
+- No secrets in code (API keys, passwords, tokens hardcoded = FAIL)
+- Input sanitization (SQL injection, XSS prevention)
+- Auth/authz properly implemented (if applicable)
+- CORS configured correctly (not `*` in production)
+- Sensitive data not logged or exposed in error messages
+
+**Performance (2 points):**
+- Database queries are indexed for common access patterns
+- N+1 queries eliminated (use eager loading / joins)
+- Pagination on list endpoints (not returning entire tables)
+- Async operations properly handled (no blocking the event loop)
+- Caching where appropriate (static data, expensive computations)
+
+**Architecture (2 points):**
+- Separation of concerns (routes ≠ business logic ≠ data access)
+- Error handling at every async boundary (try/catch, .catch(), error middleware)
+- Environment-based configuration (not hardcoded values)
+- Database migrations/schema management (Prisma, Knex, etc.)
+- Logging (structured, not console.log — but meaningful, not noisy)
+
+**Backend Quality Score Thresholds:**
+- 9-10: Production-ready. Could deploy to real users tomorrow.
+- 7-8: Solid. Minor improvements needed but nothing unsafe.
+- 5-6: Functional but has gaps. Missing tests or security holes.
+- 3-4: Significant issues. Would fail code review.
+- 1-2: Broken fundamentals. Doesn't run or has critical security flaws.
+
+**HARD RULE: Backend Quality score 5 or below = automatic sprint FAIL.**
+
+### For Non-UI Projects (Automatizacije, Skripte, API Integracije)
+
+When evaluating scripts, n8n workflows, automation pipelines, or pure backend:
+- Skip Visual Quality criterion (or score N/A)
+- Replace with **Integration Quality**:
+  - Error handling for external API failures (timeouts, rate limits, auth errors)
+  - Retry logic with exponential backoff for flaky services
+  - Data validation at system boundaries (never trust external data)
+  - Idempotency where applicable (safe to re-run)
+  - Logging of all external interactions (request/response, timing)
+  - Graceful degradation (partial failure ≠ total failure)
 
 ## Hard Fail Conditions (sprint auto-fails)
 
 - App crashes on normal usage
 - Primary feature doesn't work
 - AI features error without graceful handling
-- UI broken on desktop
+- UI broken on desktop (if UI project)
 - Data doesn't persist when it should
 - Visual output is obviously broken (text cut off, colors illegible)
-- **Visual Quality score 6 or below** — generic/default UI is not acceptable
-- **Any AI Slop pattern detected** — see Phase C list, any single pattern = FAIL
-- **Framework identifiable at a glance** — if you can tell it's shadcn/ui without reading code, FAIL
+- **Visual Quality score 6 or below** — generic/default UI is not acceptable (UI projects)
+- **Backend Quality score 5 or below** — insufficient for production
+- **Any AI Slop pattern detected** — see Phase C list, any single pattern = FAIL (UI projects)
+- **Framework identifiable at a glance** — if you can tell it's shadcn/ui without reading code, FAIL (UI projects)
+- **No tests at all** — zero test coverage on business logic = FAIL
+- **Secrets in code** — API keys, passwords hardcoded = FAIL
+- **No input validation** — endpoints accept anything without validation = FAIL
+- **External API calls without error handling** — no try/catch on HTTP calls = FAIL
 
 ## Output: docs/EVAL-REPORT.md
 

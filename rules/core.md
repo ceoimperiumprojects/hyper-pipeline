@@ -29,11 +29,22 @@ These rules apply to ALL pipeline modes (daily and hackathon).
 
 ## Code Quality
 
-11. **No console.log** — Use proper logging or remove debug statements
+11. **No console.log** — Use structured logging or remove debug statements
 12. **No lorem ipsum** — Real or realistic data only
-13. **Error handling** — Every async operation needs error handling
+13. **Error handling** — Every async operation needs try/catch or .catch
 14. **Loading states** — Every async UI operation needs a loading indicator
 15. **Mobile-responsive** — Build responsive from the start, not as afterthought
+
+## Backend Quality (Same Rigor as Frontend)
+
+15a. **Input validation on EVERY endpoint** — Use Zod schemas. Never trust user input. Validate type, format, range.
+15b. **Tests for every feature** — Write test BEFORE or DURING build, not after. Unit tests for logic, integration tests for API. All tests must pass before commit.
+15c. **Zero secrets in code** — API keys, passwords, tokens go in .env ONLY. Hardcoded secrets = instant FAIL.
+15d. **Proper error responses** — Consistent format `{ error, code }`. Proper HTTP status codes (400 for bad input, 401 for unauth, 404 for not found, 500 for server error). Never 200 for everything.
+15e. **Database queries indexed** — Any field in WHERE, ORDER BY, or JOIN must be indexed. No N+1 queries.
+15f. **Pagination mandatory** — List endpoints MUST paginate. Never return unbounded arrays.
+15g. **External API calls hardened** — Timeout, retry with backoff, error handling, rate limit respect. Never fire-and-forget.
+15h. **Architecture separation** — Routes → services → data access. Business logic NOT in route handlers.
 
 ## UI Quality (Anthropic Harness Design Standard)
 

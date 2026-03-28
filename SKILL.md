@@ -53,6 +53,9 @@ Match user intent to the right mode and sub-skills:
 | content, LinkedIn post, carousel, video | `skills/content/` | Content creation |
 | outreach, cold email, leads, sales, pipeline | `skills/outreach/` | Sales + lead gen |
 | validate, idea, MVP, problem-solution fit | `skills/validate/` | Idea validation |
+| automation, workflow, n8n, script, pipeline, cron | Pipeline handles natively | Automatizacije, skripte, data pipelines |
+| API, integration, webhook, REST, GraphQL | Pipeline handles natively | API integracije sa proper error handling |
+| process, SOP, runbook, documentation | `imperium-brain:create-sop` | Biznis procesi i dokumentacija |
 
 ---
 

@@ -88,9 +88,44 @@ Feature not working after 45 min → simplify or cut. Log in `docs/BLOCKERS.md`:
 - Simplified to: [what was built instead]
 ```
 
+### Backend Quality Standards (MANDATORY — same rigor as frontend)
+
+**API Design:**
+- RESTful conventions (proper HTTP methods: GET=read, POST=create, PUT=update, DELETE=delete)
+- Proper status codes (200, 201, 400, 401, 403, 404, 500 — not 200 for everything)
+- Input validation on EVERY endpoint with Zod schemas
+- Consistent error format: `{ error: string, code: string }`
+- Pagination on all list endpoints (never return unbounded arrays)
+
+**Testing (write tests AS you build, not after):**
+- Unit test for every business logic function
+- Integration test for every API endpoint
+- Edge case tests: empty input, invalid types, boundary values
+- Test data must be REALISTIC (not "test@test.com")
+- All tests must PASS before moving to next feature
+
+**Security (non-negotiable):**
+- ZERO secrets in code — use environment variables
+- Input sanitization on all user-facing endpoints
+- Auth middleware on protected routes
+- No `CORS: *` in production config
+- Sensitive data never in logs or error responses
+
+**Performance:**
+- Index database fields used in WHERE clauses
+- No N+1 queries (use includes/joins)
+- Async operations never block
+- Large responses paginated
+
+**Architecture:**
+- Separation: routes → controllers → services → data access
+- Error middleware catches all unhandled errors
+- Environment config (not hardcoded URLs, keys, ports)
+- Database migrations managed (Prisma, Knex)
+
 ### Code Quality
-- No `console.log` — use proper logging
-- Error handling for all async operations
+- No `console.log` — use structured logging
+- Error handling for ALL async operations (try/catch or .catch)
 - Loading + error states for UI
 - Real data, never lorem ipsum
 - Follow `.hyper/brand.md` for visual decisions

@@ -41,11 +41,38 @@ If baseline tests fail: STOP. Report to user. Do not build on a broken codebase.
 ```
 1. READ testable behavior from SPRINT-CONTRACT.md
 2. PLAN approach (identify files to create/modify)
-3. IMPLEMENT the feature
-4. SELF-TEST: Does it match the testable behavior?
-5. COMMIT: git commit -m "feat: [description]"
-6. MOVE to next feature
+3. WRITE TEST first (unit or integration — what does success look like?)
+4. IMPLEMENT the feature (make test pass)
+5. ADD INPUT VALIDATION (Zod schema on every endpoint)
+6. ADD ERROR HANDLING (try/catch on every async operation)
+7. SELF-TEST: Does it match the testable behavior?
+8. RUN ALL TESTS: npm test (everything must pass)
+9. COMMIT: git commit -m "feat: [description]"
+10. MOVE to next feature
 ```
+
+### Project Types — Adapt Process:
+
+**Web App (Next.js, React, etc.):**
+- Full process above + UI Quality Standards from generator agent
+- Backend Quality + Frontend Quality both enforced
+
+**Automation / Script / Pipeline:**
+- Same process but skip UI steps
+- Focus on: error handling, retry logic, idempotency, logging
+- External API calls MUST have: timeout, retry, error catch, rate limit respect
+- Data validation at EVERY system boundary
+
+**API Integration:**
+- Same process but focus on: contract adherence, auth flow, error mapping
+- Mock external APIs in tests (don't hit real services in CI)
+- Document every endpoint consumed with expected response shape
+
+**n8n Workflow:**
+- Plan the workflow visually (describe nodes and connections)
+- Implement with proper error handling on each node
+- Test with sample data
+- Document trigger conditions and expected outcomes
 
 ### Feature Priority Order:
 1. Data model / database schema
