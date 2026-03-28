@@ -8,6 +8,8 @@ user-invocable: false
 
 The ultimate AI execution engine. Plan → Build → Evaluate → Ship.
 
+**Built on [Anthropic's Harness Design](https://www.anthropic.com/engineering/harness-design-long-running-apps).** Read `HARNESS-DESIGN.md` for the complete methodology — GAN-inspired generator↔evaluator feedback loop, 4 grading criteria (Design Quality, Originality, Craft, Functionality), few-shot evaluator calibration, strategic pivot decisions, and multi-round Build→QA loops.
+
 ## Quick Start
 
 ```

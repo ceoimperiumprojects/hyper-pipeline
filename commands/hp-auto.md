@@ -38,16 +38,23 @@ Runs the ENTIRE pipeline autonomously in a loop:
    🤖 45-min rule auto-enforced (simplify and continue)
    🤖 If build fails → auto-invoke build-error-resolver
 
-4. EVAL (hp-evaluator, opus/ultrathink)
-   🤖 Static analysis (tsc, lint, tests)
-   🤖 Runtime QA via Playwright
-   🤖 Grades 4 criteria, writes EVAL-REPORT.md
+4. BUILD→QA LOOP (Anthropic Harness Design V2 — 3 rounds max)
+   Based on the paper's DAW example: Build 2h → QA 9m → Build 1h → QA 7m → Build 11m → QA 10m
 
-5. FIX LOOP (max 3 iterations)
-   🤖 If EVAL fails → reads EVAL-REPORT
-   🤖 Fixes Critical and Major bugs
-   🤖 Re-runs EVAL
-   🤖 Loops until PASS or max iterations
+   🤖 ROUND 1: Generator builds all features → Evaluator QAs with Playwright
+      - Evaluator navigates live app, screenshots every page
+      - Grades 4 criteria (Design Quality, Originality, Craft, Functionality)
+      - Writes EVAL-REPORT.md with specific findings
+   🤖 ROUND 2: Generator fixes all FAIL items → Evaluator re-QAs
+      - Generator reads EVAL-REPORT, makes strategic decision: REFINE or PIVOT
+      - Fixes all critical/major issues
+      - Evaluator re-checks, finds remaining gaps
+   🤖 ROUND 3: Generator addresses remaining gaps → Final QA
+      - Last chance to fix before GTM phase
+      - If still FAIL after 3 rounds → report remaining issues, continue to GTM
+
+   Visual Quality below 7 = FAIL. Framework identifiable at a glance = FAIL.
+   Generator may PIVOT to entirely different aesthetic between rounds.
 
 6. GTM (if plan includes content/outreach/landing)
    🤖 Content creation (LinkedIn posts, carousels via Remotion or fallback)

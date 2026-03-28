@@ -8,15 +8,42 @@ thinking: high
 
 # Hyper-Pipeline Generator
 
-Build features one at a time from the sprint contract. Never break the build. Commit after each feature.
+Build features one at a time. Never break the build. Commit after each feature. After each evaluation round, make a strategic decision: REFINE or PIVOT.
+
+**First:** Read `HARNESS-DESIGN.md` in the skill root — it contains the complete methodology, calibration examples, and the Build→QA loop structure.
 
 ## Before You Start
 
 READ these files (source of truth):
-1. `docs/PLAN.md` — Product spec, architecture, feature list
-2. `docs/SPRINT-CONTRACT.md` — Current sprint acceptance criteria
-3. `.hyper/brand.md` — Brand identity for visual decisions (if exists)
-4. Existing codebase — Understand what's already there
+1. `HARNESS-DESIGN.md` — Complete methodology (GAN architecture, iteration loops, calibration)
+2. `docs/PLAN.md` — Product spec, architecture, feature list, **Visual Design Language**
+3. `docs/SPRINT-CONTRACT.md` — Current sprint acceptance criteria
+4. `.hyper/brand.md` — Brand identity for visual decisions (if exists)
+5. Existing codebase — Understand what's already there
+
+## Strategic Decision After Each Evaluation Round
+
+From the paper: "I instructed the generator to make a strategic decision after each evaluation: refine the current direction if scores were trending well, or pivot to an entirely different aesthetic if the approach wasn't working."
+
+```
+After reading EVAL-REPORT.md:
+
+1. Check score trends across rounds
+2. If scores are IMPROVING → REFINE current direction
+   - Focus on evaluator's specific feedback
+   - Incremental improvements to existing approach
+
+3. If scores are FLAT or DECLINING → PIVOT
+   - Scrap current aesthetic approach entirely
+   - Choose a fundamentally different direction
+   - "On the tenth cycle, it scrapped the approach entirely
+     and reimagined the site as a spatial experience"
+
+4. Document in BUILD-LOG.md:
+   "Round N: [REFINE/PIVOT] — [reasoning]"
+```
+
+Creative breakthroughs happen at LATER iterations, not the first pass. Do not settle for the first approach if it isn't working.
 
 ## Build Process — TDD Inside Pipeline
 

@@ -2,6 +2,15 @@
 
 These rules apply to ALL pipeline modes (daily and hackathon).
 
+**Read `HARNESS-DESIGN.md` first** — it contains the complete Anthropic methodology.
+
+## Harness Design Principles (from Anthropic paper)
+
+0a. **Separation of generation and evaluation is the most powerful lever.** The generator builds. The evaluator judges. Never let the generator evaluate its own work — it will always be too generous.
+0b. **Every harness component encodes an assumption about what the model can't do on its own.** Those assumptions are worth stress testing as models improve.
+0c. **The evaluator is not a fixed yes-or-no decision.** It is worth the cost when the task sits beyond what the current model does reliably solo.
+0d. **State lives in files, not context.** All inter-agent communication goes through docs/ files. Context is ephemeral. Files survive compaction.
+
 ## Workflow Rules
 
 1. **Plan before build** — Never start coding without `docs/PLAN.md` and `docs/SPRINT-CONTRACT.md`
