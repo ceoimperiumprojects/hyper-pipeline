@@ -56,7 +56,81 @@ imperium-crawl search --query "site:linkedin.com [title] [company]" --count 10
 
 Score ≥ 15 = hot lead. Score 10-14 = warm. Score < 10 = cold.
 
-## Cold Email Framework
+## B2C Mode: Community & Influencer Outreach
+
+For B2C products, lead gen is DIFFERENT from B2B. Instead of companies, find:
+
+### Community Research (imperium-crawl)
+```bash
+# Reddit communities
+cd /home/pavle/Desktop/Projekti/Pumpmyride
+npx imperium-crawl reddit search --query "[product topic] subreddit" --count 10
+npx imperium-crawl reddit posts --subreddit "[relevant sub]" --sort top --count 20
+
+# YouTube influencers
+npx imperium-crawl youtube search --query "[topic] review" --count 20
+npx imperium-crawl youtube channel --url "[channel URL]"
+
+# Instagram influencers
+npx imperium-crawl instagram search --query "[topic] influencer" --count 20
+
+# Facebook groups (via search)
+npx imperium-crawl search --query "site:facebook.com/groups [topic]" --count 20
+```
+
+### B2C Lead Types
+| Type | How to find | Outreach approach |
+|------|------------|-------------------|
+| **Influencers** | YouTube/Instagram/TikTok search | Partnership/collab DM |
+| **Community admins** | Reddit mods, FB group admins | Share value, not pitch |
+| **Content creators** | Blog/podcast search | Guest post, feature exchange |
+| **Early adopters** | Reddit/HN commenters on related topics | Beta invite |
+| **Local businesses** | Google Maps, APR.rs, directories | Partnership email |
+
+### B2C Outreach Templates
+
+**Influencer Collab DM:**
+```
+Hey [name]! Love your content about [specific video/post].
+
+I built [product] — [one-line description]. Think it'd be a great fit for your audience.
+
+Would you be open to trying it out? Happy to give you free lifetime access + [incentive].
+
+No strings attached — if you don't love it, no need to post about it.
+```
+
+**Community Value Post (NOT a pitch):**
+```
+[Share genuine insight or resource related to the community topic]
+[Mention your product naturally at the end, not as the main focus]
+"I built [X] that does [Y] — it's free to try if anyone's interested. But mainly wanted to share [the value]."
+```
+
+**Beta Invite (for engaged commenters):**
+```
+Subject: You seem like the perfect beta tester
+
+[Name], saw your comment about [topic] on [platform] — great point about [specific thing].
+
+I'm building [product] that [solves their expressed pain]. Looking for 50 beta testers who actually know this space.
+
+Free lifetime access + your feedback shapes the product.
+
+Interested? [link]
+```
+
+### B2C Qualification (instead of BANT)
+| Criterion | Score |
+|-----------|-------|
+| **Audience size** (followers, members) | 1-5 |
+| **Engagement rate** (comments, not just likes) | 1-5 |
+| **Relevance** (how close to our topic) | 1-5 |
+| **Accessibility** (DM open, email visible) | 1-5 |
+
+Score ≥ 15 = high-value target. Score 10-14 = worth reaching out. Score < 10 = skip.
+
+## Cold Email Framework (B2B)
 
 ### 137 Sales Triggers (categories)
 1. **Funding trigger** — Company just raised money → needs tools to scale

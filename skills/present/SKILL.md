@@ -161,6 +161,35 @@ When content skill generates a post:
 3. **Preview first**
 4. Export as: PNG series + PDF + PPTX + optionally MP4
 
+## Landing Page Generation
+
+When `/hp-auto` GTM phase includes a landing page:
+
+1. Generate a **single self-contained HTML file** (`landing.html`) with:
+   - Hero section with headline + subheadline + CTA button
+   - Features section (3-4 key features with icons)
+   - Social proof / testimonials section
+   - Pricing section (if SaaS)
+   - Final CTA section
+   - Footer with links
+   - Brand colors from `.hyper/brand.md`
+   - Google Fonts import (heading + body fonts from brand)
+   - Mobile responsive (media queries)
+   - Smooth scroll navigation
+   - Professional, not AI-slop (no purple gradients, no generic hero)
+
+2. **Output:** `landing.html` in project root
+3. **Also create:** `landing/index.html` if project has a `public/` or `out/` directory
+
+### Landing Page Rules
+- **Zero dependencies** — single HTML file, opens in any browser
+- **Brand colors** — primary for CTAs, secondary for accents, neutrals for text/bg
+- **Real copy** — actual product description, not "Welcome to [Product]"
+- **Real features** — from PLAN.md P0 features
+- **CTA links** — can link to `#signup` or external URL
+- **SEO tags** — meta title, description, OG image reference
+- **Print-friendly** — should look good as PDF too
+
 ## Fallbacks (if Remotion not available)
 
 | Need | Fallback |
