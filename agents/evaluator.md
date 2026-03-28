@@ -87,20 +87,54 @@ Claude's multimodal vision reviews ALL visual outputs. This is what makes hyper-
 | **Color Harmony** | Colors work together? Sufficient contrast? | Clashing colors, text hard to read on background |
 | **Spacing** | Nothing cramped? Nothing lost in space? | Elements touching, massive gaps |
 | **Brand Consistency** | Matches .hyper/brand.md? Same across all screens? | Different colors per page, inconsistent fonts |
-| **AI Slop Detection** | Generic patterns? Template vibes? | Purple gradients on white, generic card layouts, stock imagery feel |
-| **Professional Polish** | Could this be on Product Hunt? Dribbble? | Looks like a tutorial project, not a product |
+| **AI Slop Detection** | Generic patterns? Default framework? Template vibes? | Default shadcn/ui, pill buttons, purple gradients, eyebrow labels, decorative copy, KPI card grids, glassmorphism, oversized rounded corners, generic hero sections |
+| **Distinctiveness** | Could you identify the framework at a glance? | Recognizably shadcn, recognizably Tailwind defaults, recognizably Bootstrap, any "template" feeling |
+| **Professional Polish** | Would this get upvotes on Dribbble? Could it be on Product Hunt? | Looks like a tutorial project, code bootcamp final project, or generic SaaS template |
 
 3. For each issue: screenshot reference + specific problem + fix suggestion
+
+**Anthropic's 4 Frontend Grading Criteria (from Harness Design paper):**
+
+| Criterion | What to grade | Weight |
+|-----------|--------------|--------|
+| **Design Quality** | Does the design feel like a cohesive WHOLE rather than a collection of parts? Colors, typography, layout, details combine to create a distinct mood and identity. | HIGH |
+| **Originality** | Evidence of CUSTOM decisions, or is this template layouts, library defaults, and AI-generated patterns? A human designer should recognize deliberate creative choices. Unmodified stock components — or telltale signs of AI generation like purple gradients over white cards — FAIL here. | HIGH |
+| **Craft** | Technical execution: typography hierarchy, spacing consistency, color harmony, contrast ratios. Most reasonable implementations do fine here by default. | MEDIUM |
+| **Functionality** | Usability independent of aesthetics. Can users understand the interface, find primary actions, complete tasks without guessing? | MEDIUM |
+
+Emphasize Design Quality and Originality over Craft and Functionality. Claude already scores well on craft and functionality by default — it's design and originality where it produces bland output.
+
 4. Score: Visual Quality 1-10
 
-**AI Slop patterns to detect:**
+**Visual Quality Score Thresholds (STRICT):**
+- **9-10**: Indistinguishable from professional designer's work. Dribbble/Awwwards quality. Distinctive identity.
+- **7-8**: Clearly custom-designed. Framework NOT identifiable. Consistent aesthetic point-of-view.
+- **5-6**: Some customization but still recognizable as a framework. Needs more aesthetic direction.
+- **3-4**: Minimal customization. Default component library is obvious. Generic layout.
+- **1-2**: Pure default framework output. Zero design effort.
+
+**HARD RULE: Visual Quality score 6 or below = automatic sprint FAIL.**
+
+**The Dribbble Test:** For every screen, ask: "Would this get engagement on Dribbble?" If no → score cannot exceed 6.
+
+**The Framework Test:** For every screen, ask: "Can I tell this was built with shadcn/ui at a glance?" If yes → score cannot exceed 5.
+
+**AI Slop patterns — AUTO-FAIL if ANY are present:**
+- Default shadcn/ui components with no visual customization
 - Purple/blue gradients over white cards
-- Generic "SaaS landing page" layout
-- Centered everything with no visual hierarchy
-- Stock photo placeholder vibes
-- Default shadcn/ui with zero customization
-- Rounded corners on everything
-- Generic hero with "Welcome to [Product]" heading
+- Generic "SaaS landing page" layout with centered hero
+- Pill-shaped buttons as primary UI pattern
+- Oversized rounded corners (20px+) on everything
+- Eyebrow labels (uppercase small text above headings)
+- Decorative copy paragraphs explaining what the UI section does
+- KPI metric cards in a grid as the default dashboard view
+- Floating glassmorphism/frosted panels
+- Dramatic shadows (24px+ blur, colored shadows)
+- Generic "Welcome to [Product]" hero heading
+- Inter/Roboto as the only font choice with no typographic personality
+
+**UI Iteration Loop:**
+If Visual Quality scores below 7, return detailed feedback to generator with specific fixes. Generator MUST iterate (up to 5 rounds) until Visual Quality reaches 7+. This is modeled on Anthropic's harness which runs 5-15 iterations for frontend quality.
 
 ### Phase D: Grade + Report
 
@@ -121,6 +155,9 @@ Claude's multimodal vision reviews ALL visual outputs. This is what makes hyper-
 - UI broken on desktop
 - Data doesn't persist when it should
 - Visual output is obviously broken (text cut off, colors illegible)
+- **Visual Quality score 6 or below** — generic/default UI is not acceptable
+- **Any AI Slop pattern detected** — see Phase C list, any single pattern = FAIL
+- **Framework identifiable at a glance** — if you can tell it's shadcn/ui without reading code, FAIL
 
 ## Output: docs/EVAL-REPORT.md
 

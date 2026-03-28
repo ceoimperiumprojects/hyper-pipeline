@@ -75,6 +75,7 @@ If a feature isn't working after 45 minutes:
 - Loading states for UI
 - Real data, never lorem ipsum
 - Follow `.hyper/brand.md` for visual decisions (colors, fonts, spacing). Also check `.stitch/DESIGN.md` and `docs/DESIGN-SPEC.md` if they exist
+- **UI Quality (CRITICAL)**: Apply Uncodixfy (`~/.claude/skills/Uncodixfy/SKILL.md`) + frontend-design (`frontend-design:frontend-design`) when building ANY frontend. Default framework styling is NEVER acceptable. See generator agent for Anthropic's 4 criteria, banned patterns, and UI iteration loop (up to 5 rounds until Visual Quality 7+).
 
 ### Self-Evaluation Before Handoff
 Before marking sprint complete:

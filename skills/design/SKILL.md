@@ -8,6 +8,13 @@ origin: hyper-pipeline
 
 Smart UI design phase — detects available tools and adapts workflow accordingly.
 
+## UI Quality Skills (MANDATORY)
+
+Every design spec and every UI component MUST be informed by:
+1. **Uncodixfy** (`~/.claude/skills/Uncodixfy/SKILL.md`) — All banned patterns must be avoided. The design must NOT produce output that looks like default AI-generated UI.
+2. **frontend-design** (skill: `frontend-design:frontend-design`) — Bold aesthetic direction. Every design must be distinctive, memorable, and production-grade.
+3. **Anthropic's 4 Criteria** (from Harness Design paper) — Design Quality, Originality, Craft, Functionality. Design Quality and Originality weighted highest.
+
 ## When to Activate
 
 - User invokes `/hp-design`
@@ -119,6 +126,9 @@ Based on user answers + `.hyper/brand.md`, generate `docs/DESIGN-SPEC.md` with:
 7. **Interaction Patterns** — Hover, focus, active, disabled states with timing (150ms transitions)
 8. **Mobile Adaptation** — Breakpoints, touch targets (44x44px min), responsive behavior per screen
 9. **Design Principles** — 3-5 principles specific to this project (e.g., "data density over whitespace", "progressive disclosure")
+10. **Aesthetic Direction Statement** — A 2-3 sentence statement describing the SPECIFIC visual identity. NOT "clean and modern" or "minimal and professional" (those are meaningless AI slop). Instead: "Dense data interface inspired by Linear's restraint meets Bloomberg Terminal's information hierarchy" or "Editorial magazine layout with Stripe's typographic precision." This statement guides EVERY component decision.
+11. **Reference Inspirations** — 2-3 specific real products/websites this design draws from (e.g., "Linear's sidebar density", "Stripe's documentation typography", "GitHub's issue list compactness"). These are implementation targets, not vague mood boards.
+12. **Anti-Slop Compliance** — Explicit list of what this design must NOT do (from Uncodixfy): no default shadcn, no pill buttons, no oversized radii (max 8-12px cards, 8-10px buttons), no glassmorphism, no decorative copy, no eyebrow labels, shadow max 8px blur, transitions 100-200ms only.
 
 ### Step 4: Present for Approval (Decision Point 2)
 
@@ -152,7 +162,14 @@ In `/hp-auto`, NO questions — auto-detect and proceed:
 Auto mode infers UI answers from PLAN.md:
 - Screens = features from sprint contract that have UI
 - Flow = user stories from sprint contract
-- Style = brand archetype (Sage → clean/corporate, Rebel → bold/dark, etc.)
+- Style = brand archetype mapped to SPECIFIC aesthetic direction (not generic):
+  - Sage → "Linear-inspired density with restrained palette" (NOT "clean and corporate")
+  - Rebel → "High-contrast editorial with Raycast-level precision" (NOT "bold and dark")
+  - Hero → "Nike-inspired bold typography with GitHub's functional density"
+  - Creator → "Stripe documentation clarity meets Notion's spatial rhythm"
+  - Explorer → "GitHub's functional compactness with custom typographic character"
+  - Always apply Uncodixfy banned patterns as design constraints
+  - Always apply frontend-design bold aesthetic direction
 - Layout = industry convention (SaaS dashboard → sidebar + top nav, data tables)
 
 ---

@@ -69,6 +69,67 @@ Feature not working after 45 min → simplify or cut. Log in `docs/BLOCKERS.md`:
 - Follow `.hyper/brand.md` for visual decisions
 - Mobile-responsive from the start
 
+### UI Quality Standards (MANDATORY for all frontend code)
+
+**This is the most important section. Generic UI = project FAIL.**
+
+Before writing ANY frontend component, apply these two skills:
+1. **Uncodixfy** (`~/.claude/skills/Uncodixfy/SKILL.md`) — Prevents generic AI-generated UI patterns. Think Linear, Raycast, Stripe, GitHub.
+2. **frontend-design** (skill: `frontend-design:frontend-design`) — Bold aesthetic direction. Every screen must be distinctive and memorable.
+
+**Anthropic's 4 Frontend Criteria (from Harness Design paper):**
+
+| Criterion | What it means | Weight |
+|-----------|--------------|--------|
+| **Design Quality** | Cohesive whole, not collection of parts. Colors, typography, layout create a distinct mood and identity. | HIGH |
+| **Originality** | Evidence of custom decisions. NOT template layouts, library defaults, or AI-generated patterns. Unmodified stock components = FAIL. | HIGH |
+| **Craft** | Typography hierarchy, spacing consistency, color harmony, contrast ratios. Technical execution. | MEDIUM |
+| **Functionality** | Users understand the interface, find actions, complete tasks without guessing. | MEDIUM |
+
+Design Quality and Originality are weighted HIGHER because Claude already scores well on Craft and Functionality by default.
+
+**Process for each UI screen:**
+1. Before coding: decide a SPECIFIC aesthetic direction — NOT "clean and modern" (that is meaningless AI slop). Instead: "Linear's sidebar density with Bloomberg's data tables" or "Stripe's typographic precision with Raycast's command palette feel"
+2. Read Uncodixfy banned patterns — internalize them
+3. Implement the screen with full Uncodixfy compliance
+4. After building: take screenshot via Playwright MCP and self-evaluate
+5. Ask: "Would someone recognize this as default shadcn/ui?" — If YES → rework until distinctive
+6. Ask: "Would this get engagement on Dribbble?" — If NO → needs more design effort
+7. Only move to next screen when current one passes self-evaluation
+
+**Banned Patterns (from Uncodixfy — memorize):**
+- Default shadcn/ui styling with no customization
+- Pill-shaped buttons everywhere
+- Oversized rounded corners (20px+ border-radius)
+- Purple/blue gradients over white cards
+- Floating glassmorphism panels
+- Generic hero sections inside dashboards
+- Eyebrow labels (uppercase small text above headings)
+- Decorative copy explaining what the UI does
+- KPI card grids as default dashboard layout
+- Dramatic shadows (24px+ blur)
+- Transform animations on hover
+- Generic dark mode = blue-black gradients + cyan accents
+
+**Required Patterns (from Uncodixfy — "Keep It Normal"):**
+- Sidebars: 240-260px fixed, solid background, simple border-right
+- Buttons: solid fills or simple borders, 8-10px radius MAX
+- Cards: 8-12px radius max, subtle borders, shadows under 8px blur
+- Typography: clear hierarchy, readable 14-16px body
+- Spacing: consistent 4/8/12/16/24/32px scale
+- Transitions: 100-200ms ease, simple opacity/color changes
+- Tables: clean rows, simple borders, subtle hover, left-aligned
+
+**Required from frontend-design:**
+- Choose distinctive fonts (NOT Inter, Roboto, Arial for headings)
+- Commit to a cohesive aesthetic with CSS variables
+- Dominant colors with sharp accents — not timid evenly-distributed palettes
+- Meaningful motion at high-impact moments (page load stagger, scroll-trigger)
+- At least one unexpected or memorable design element per page
+
+**UI Iteration Loop (from Anthropic Harness Design paper):**
+If the evaluator scores Visual Quality below 7, the generator MUST iterate on the UI. Up to 5 iterations per screen until the evaluator approves. This is not optional — the paper shows 5-15 iterations produce dramatically better results than single-pass generation.
+
 ### Git Discipline
 - One commit per working feature
 - Conventional: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`
@@ -92,6 +153,11 @@ Before marking sprint complete:
 - [ ] No build/type errors
 - [ ] No console.log in source
 - [ ] Tests pass
+- [ ] UI does NOT look like default shadcn/ui or any recognizable framework
+- [ ] UI passes Uncodixfy banned patterns check
+- [ ] Every screen has a distinctive aesthetic direction
+- [ ] Screenshots taken of every page via Playwright
+- [ ] Would the UI get engagement on Dribbble? If no → iterate before handoff
 
 Write summary in `docs/BUILD-LOG.md`:
 ```markdown

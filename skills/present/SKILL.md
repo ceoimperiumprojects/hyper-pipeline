@@ -176,7 +176,13 @@ When `/hp-auto` GTM phase includes a landing page:
    - Google Fonts import (heading + body fonts from brand)
    - Mobile responsive (media queries)
    - Smooth scroll navigation
-   - Professional, not AI-slop (no purple gradients, no generic hero)
+   - Apply Uncodixfy skill (`~/.claude/skills/Uncodixfy/SKILL.md`) — no banned patterns
+   - Apply frontend-design skill (`frontend-design:frontend-design`) — bold aesthetic direction
+   - Professional, DISTINCTIVE design — NOT recognizable as a template or AI-generated page
+   - NO: purple gradients, generic hero, pill buttons, oversized radii, glassmorphism, eyebrow labels, Inter/Roboto as only font
+   - YES: distinctive typography, sharp color accents, intentional spatial composition, meaningful motion
+   - YES: at least one memorable visual element per page (unexpected layout, animation, texture, CSS art)
+   - Think Sakura Festival level — every page should have SOUL, not just structure
 
 2. **Output:** `landing.html` in project root
 3. **Also create:** `landing/index.html` if project has a `public/` or `out/` directory
@@ -189,6 +195,18 @@ When `/hp-auto` GTM phase includes a landing page:
 - **CTA links** — can link to `#signup` or external URL
 - **SEO tags** — meta title, description, OG image reference
 - **Print-friendly** — should look good as PDF too
+
+### Landing Page Quality Gate (MANDATORY before finalizing)
+- [ ] Does NOT look like a generic SaaS/AI template
+- [ ] Framework/template is NOT identifiable at a glance
+- [ ] Typography is distinctive (not system fonts, not Inter/Roboto alone)
+- [ ] Color palette has dominant + sharp accent, not evenly distributed
+- [ ] Has at least one memorable visual element (CSS art, animation, texture, unexpected layout)
+- [ ] Passes ALL Uncodixfy banned patterns
+- [ ] Passes Dribbble Test: "Would this get engagement on a design community?"
+- [ ] No generic "Welcome to [Product]" or "The all-in-one platform for..." copy
+- [ ] Every section has visual purpose, no decorative filler sections
+- [ ] Anthropic Originality criterion: evidence of custom decisions, not template defaults
 
 ## Fallbacks (if Remotion not available)
 

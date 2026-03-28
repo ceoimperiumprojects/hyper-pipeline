@@ -26,15 +26,23 @@ These rules apply to ALL pipeline modes (daily and hackathon).
 14. **Loading states** — Every async UI operation needs a loading indicator
 15. **Mobile-responsive** — Build responsive from the start, not as afterthought
 
+## UI Quality (Anthropic Harness Design Standard)
+
+16. **No default framework styling** — Default shadcn/ui, Bootstrap, or any component library with zero customization is NEVER acceptable. Always customize beyond defaults.
+17. **Every screen must be distinctive** — Not recognizable as generic framework output. Apply Uncodixfy skill on every frontend build.
+18. **Bold aesthetic direction required** — Apply frontend-design skill. Every UI needs a clear conceptual direction — NOT "clean and modern" (meaningless AI slop).
+19. **Screenshot self-evaluation** — After building UI, take screenshot via Playwright and ask: "Would this get engagement on Dribbble? Can I tell which framework built this?" If either fails, iterate.
+20. **Visual Quality iteration loop** — If evaluator scores Visual Quality below 7, generator MUST iterate on UI (up to 5 rounds). Single-pass UI generation is NOT acceptable for production output.
+
 ## Git Discipline
 
-16. **Conventional commits** — feat:, fix:, refactor:, docs:, test:
-17. **One feature per commit** — Atomic, revertable changes
-18. **Never force push** — Use revert if needed
-19. **Tag milestones** — Tag at sprint completion: v0.1, v0.2, v1.0
+21. **Conventional commits** — feat:, fix:, refactor:, docs:, test:
+22. **One feature per commit** — Atomic, revertable changes
+23. **Never force push** — Use revert if needed
+24. **Tag milestones** — Tag at sprint completion: v0.1, v0.2, v1.0
 
 ## Context Management
 
-20. **Strategic compaction** — Compact at phase transitions, not mid-feature
-21. **Re-read docs/ after compaction** — State is in files, restore it
-22. **Keep 20%+ context headroom** — Don't fill the context window
+25. **Strategic compaction** — Compact at phase transitions, not mid-feature
+26. **Re-read docs/ after compaction** — State is in files, restore it
+27. **Keep 20%+ context headroom** — Don't fill the context window
