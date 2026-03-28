@@ -174,6 +174,8 @@ Need to process/convert media?
 | Server | Use for |
 |--------|---------|
 | **playwright** | Browser automation for QA (evaluator) |
+| **supabase** | Database management, auth, storage, edge functions |
+| **claude-peers** | Inter-session messaging for generator↔evaluator harness |
 | **crawl4ai** | Alternative web fetching |
 | **context7** | Live documentation lookup |
 | **Figma** | Design file access |
@@ -195,7 +197,11 @@ Need to process/convert media?
 | pm2 | npm global | Process manager |
 | pnpm | npm global | Package manager |
 | agent-browser | npm global | AI browser agent |
+| vercel | npm global | Vercel deploy (`vercel --prod`) |
+| supabase | npx | Supabase CLI — DB, auth, storage, functions (`npx supabase`) |
 | railway | npm global | Railway deploy |
+| claude-peers | ~/claude-peers-mcp | Generator↔Evaluator peer messaging |
+| openspace | ~/OpenSpace | Self-improving skills (autofix/autoimprove/autolearn) |
 
 ---
 

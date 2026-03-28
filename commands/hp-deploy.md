@@ -58,13 +58,31 @@ Build, verify, deploy, confirm it's live.
 
 ## Platform-Specific Setup
 
-### Vercel (recommended for Next.js)
+### Vercel (recommended for Next.js) — INSTALLED
 ```bash
 # First time
-npx vercel link
+vercel link
 # Deploy
-npx vercel --prod
+vercel --prod
+# Check status
+vercel ls
 ```
+
+### Supabase (database + auth + storage) — INSTALLED
+```bash
+# Init in project
+npx supabase init
+# Link to remote project
+npx supabase link --project-ref [ref]
+# Push migrations
+npx supabase db push
+# Deploy edge functions
+npx supabase functions deploy [function-name]
+# Generate types
+npx supabase gen types typescript --linked > src/types/supabase.ts
+```
+
+Note: Supabase MCP is also available as a plugin for direct DB access from Claude Code.
 
 ### Railway
 ```bash
