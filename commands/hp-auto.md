@@ -19,6 +19,12 @@ Give it a spec and walk away. It does everything.
 Runs the ENTIRE pipeline autonomously in a loop:
 
 ```
+0. PEERS CHECK (optional but recommended)
+   🤖 list_peers — check if an evaluator peer is running
+   If evaluator peer found → use peers workflow (generator↔evaluator in separate sessions)
+   If no peers → single-session workflow (generator self-evaluates)
+   See skills/peers/SKILL.md for the full peers protocol
+
 1. CODEBASE SCAN (existing project support)
    🤖 Reads entire codebase structure
    🤖 Identifies patterns, stack, conventions, existing tests

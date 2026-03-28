@@ -267,3 +267,45 @@ Use aspirational language in ALL agent prompts:
 - "Generic AI output is the comfortable default. Your job is to push PAST that default aggressively"
 - "Would this make someone stop mid-scroll on Dribbble? If not, it's not done yet"
 - "The difference between good and great is the last 20% of effort — the details that most people skip"
+
+---
+
+## Physical Separation via Claude Peers MCP
+
+The paper emphasizes separation of generation and evaluation. **Claude Peers MCP** (`louislva/claude-peers-mcp`) provides TRUE physical separation:
+
+```
+Terminal 1 (GENERATOR)              Terminal 2 (EVALUATOR)
+┌─────────────────────┐             ┌─────────────────────┐
+│ Builds features     │  ────────>  │ Navigates live app   │
+│ Writes code         │             │ Screenshots pages    │
+│ Commits each feature│  <────────  │ Grades 4 criteria    │
+│ Reads feedback      │             │ Writes EVAL-REPORT   │
+│ REFINE or PIVOT     │             │ Sends specific fixes │
+└─────────────────────┘             └─────────────────────┘
+         Broker daemon (localhost:7899 + SQLite)
+```
+
+**Why this matters:**
+- Different PROCESSES — no shared context bias
+- Different PROMPTS — generator tuned for building, evaluator tuned for skepticism
+- Instant communication via MCP channel protocol
+- Evaluator cannot "talk itself into deciding issues aren't a big deal" because it's a separate session with its own skeptical prompt
+
+**This is the gold standard implementation of the harness architecture.**
+
+See `skills/peers/SKILL.md` for the complete workflow protocol.
+
+---
+
+## Self-Improving Skills via OpenSpace
+
+**OpenSpace** (`HKUDS/OpenSpace`) adds a self-improvement layer:
+
+- **autofix** — Skill fails consistently → automatically adjust prompt/parameters
+- **autoimprove** — Skill works but scores plateau → optimize for better results
+- **autolearn** — Skill performs well consistently → lock pattern, prevent regression
+
+Results from their benchmarks: 46% fewer tokens, 4.2x higher value, from 6 skills → 60 self-generated skills.
+
+Integration: OpenSpace tracks pipeline skill performance and evolves them over time.
