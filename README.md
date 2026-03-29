@@ -10,11 +10,11 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/agents-4-blue?style=flat-square" alt="4 Agents">
-  <img src="https://img.shields.io/badge/skills-10-purple?style=flat-square" alt="10 Skills">
-  <img src="https://img.shields.io/badge/commands-7-green?style=flat-square" alt="7 Commands">
-  <img src="https://img.shields.io/badge/modes-3-orange?style=flat-square" alt="3 Modes">
-  <img src="https://img.shields.io/badge/eval_pass_rate-100%25-brightgreen?style=flat-square" alt="100% Eval">
+  <img src="https://img.shields.io/badge/version-2.0.0-blue?style=flat-square" alt="v2.0.0">
+  <img src="https://img.shields.io/badge/commands-13-green?style=flat-square" alt="13 Commands">
+  <img src="https://img.shields.io/badge/skills-11-purple?style=flat-square" alt="11 Skills">
+  <img src="https://img.shields.io/badge/agents-4-orange?style=flat-square" alt="4 Agents">
+  <img src="https://img.shields.io/badge/harness-Anthropic_Design-ff6b6b?style=flat-square" alt="Anthropic Harness">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square" alt="MIT">
 </p>
 

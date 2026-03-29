@@ -1,9 +1,16 @@
 {
   "name": "hyper-pipeline",
-  "version": "1.0.0",
-  "description": "The ultimate AI execution engine. Planner→Generator→Evaluator feedback loop with visual validation, brand management, research, content, outreach, and Remotion visuals. Three modes: full auto, collaborative, hackathon sprint.",
+  "version": "2.0.0",
+  "description": "AI execution engine built on Anthropic Harness Design. 13 commands, 4 agents, 11 skills. Planner→Generator→Evaluator GAN-inspired feedback loop with few-shot calibrated evaluator, UI quality enforcement (Uncodixfy + frontend-design), backend quality criteria (5x2pts), Claude Peers physical separation, OpenSpace self-improving skills. Full dev lifecycle: plan, build, eval, design, present, deploy, fix, refactor, test, CI/CD. Obsidian vault integration for project management.",
   "license": "MIT",
-  "keywords": ["pipeline", "planner", "generator", "evaluator", "hackathon", "harness-design", "visual-validation", "remotion", "brand", "startup", "content", "outreach", "lead-gen"],
+  "keywords": [
+    "pipeline", "planner", "generator", "evaluator",
+    "harness-design", "anthropic", "gan-inspired",
+    "hackathon", "visual-validation", "uncodixfy",
+    "brand", "startup", "content", "outreach", "lead-gen",
+    "deploy", "ci-cd", "refactor", "testing",
+    "claude-peers", "openspace", "obsidian"
+  ],
   "agents": [
     "./agents/planner.md",
     "./agents/generator.md",

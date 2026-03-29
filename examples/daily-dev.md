@@ -107,3 +107,17 @@ Generator fixes Bug #1 (validation) → commit → /hp-eval again → PASS ✓
 - Plan: 5 min
 - Build: 25 min
 - Eval + Fix: 15 min
+
+---
+
+## Other Daily Commands
+
+After the main feature is done, you might also use:
+
+```
+/hp-test                    # Add tests to untested modules
+/hp-fix "bug in scoring"    # Debug + fix with failing test
+/hp-refactor src/services/  # Clean up code safely
+/hp-deploy                  # Deploy to Vercel
+/hp-ci                      # Generate GitHub Actions pipeline
+```

@@ -304,4 +304,18 @@ From the paper: "I calibrated the evaluator using few-shot examples with detaile
 **Score 10/10 (exceptional — museum quality):**
 > The interface transcends typical web aesthetics. Bespoke spatial layout where panels overlap in deliberate z-index hierarchy. Typography combines Untitled Sans with Newsreader — unexpected pairing creating editorial tension. Essentially monochrome palette achieves visual interest through transparency layers and subtle noise textures. Micro-interactions use spring physics with tuned damping. The impression is closer to a design studio portfolio than a SaaS dashboard. Would stop someone mid-scroll on Dribbble.
 
+### Backend Quality — Calibration
+
+**Score 3/10 (FAIL — dangerous for production):**
+> Zero test files in the entire project. API endpoints accept any input — no Zod schemas, no validation. `POST /api/users` accepts `{name: 123, email: true}` without error. Database password hardcoded in `src/db.ts:4` as `const DB_PASS = "admin123"`. Every list endpoint returns the entire table — no pagination. `getProducts()` at `services/product.ts:23` does a `findMany()` inside a loop, creating N+1 queries. All errors return `500 Internal Server Error` with the full stack trace exposed to the client.
+
+**Score 5/10 (FAIL — functional but unprofessional):**
+> Tests exist for 3 of 8 API endpoints — happy path only, no edge cases. Zod validation on `POST` routes but not `PATCH`. Pagination exists on `/products` but not on `/orders` or `/users`. Error handling uses try/catch but returns inconsistent formats — some return `{error: "..."}`, others `{message: "..."}`, one returns `{msg: "..."}`. Database queries work but `getUserOrders` at `services/user.ts:45` does 3 separate queries that could be one join. `.env.example` exists but `STRIPE_KEY` is still in `src/payments.ts:12`.
+
+**Score 8/10 (PASS — solid engineering):**
+> Test coverage on all 12 API endpoints — happy path + validation errors + auth checks. Zod schemas for every request body, shared in `src/schemas/`. Consistent error format `{error, code, details}` through error middleware at `src/middleware/error.ts`. All list endpoints paginated with `?page=1&limit=20` and proper `{data, total, page, pages}` response. Indexed fields for all WHERE clauses (checked in `prisma/schema.prisma`). No secrets in code — all in `.env` with `.env.example` documenting required vars. Architecture: routes → controllers → services → repositories. Rate limiting on auth endpoints via `express-rate-limit`.
+
+**Score 10/10 (exceptional — production-grade):**
+> 94% test coverage — unit tests for all business logic, integration tests for every endpoint with realistic test data, edge case tests for concurrent access and race conditions. Request validation with Zod + response validation (ensures API contract). OpenAPI spec auto-generated from Zod schemas. Database transactions for multi-step operations. Structured logging with correlation IDs for request tracing. Health check endpoint with DB connectivity test. Graceful shutdown handling. Rate limiting + CORS + security headers (helmet). Input sanitization against XSS. Idempotency keys on payment endpoints. The codebase reads like it was written by a senior backend engineer with production incident experience.
+
 Be specific. Reference code. State expected vs actual. Use HARNESS-DESIGN.md calibration examples as your grading anchor.

@@ -78,5 +78,45 @@
   {
     "query": "pomozi mi da napisem unit testove za ovu utility funkciju calculateDiscount, treba da pokrijem edge cases",
     "should_trigger": false
+  },
+  {
+    "query": "deployuj ovu aplikaciju na vercel, sve mora da radi u produkciji, testiraj pre deploya",
+    "should_trigger": true
+  },
+  {
+    "query": "imam bug - kad kliknem na delete dugme nista se ne desi, reprodukuj bug, napisi test pa popravi",
+    "should_trigger": true
+  },
+  {
+    "query": "refaktorisi ceo auth modul - razdvoji middleware od business logike, ne smes nista da pokvaris",
+    "should_trigger": true
+  },
+  {
+    "query": "dodaj testove na sve API endpointe, pokrivaj edge cases, daj mi coverage report",
+    "should_trigger": true
+  },
+  {
+    "query": "napravi github actions CI pipeline - lint, test, build na svaki PR, deploy na merge u main",
+    "should_trigger": true
+  },
+  {
+    "query": "hakaton sutra, tema AI x fintech, 24h solo, treba mi ceo pipeline od brainstorminga do prezentacije",
+    "should_trigger": true
+  },
+  {
+    "query": "koliko je sati",
+    "should_trigger": false
+  },
+  {
+    "query": "obrisi ovaj fajl i commituj",
+    "should_trigger": false
+  },
+  {
+    "query": "kako se koristi useReducer hook u react-u, daj mi primer",
+    "should_trigger": false
+  },
+  {
+    "query": "preименuj ovu promenljivu iz camelCase u snake_case svuda u projektu",
+    "should_trigger": false
   }
 ]
