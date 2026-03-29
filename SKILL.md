@@ -61,6 +61,8 @@ Match user intent to the right mode and sub-skills:
 | automation, workflow, n8n, script, pipeline, cron | Pipeline handles natively | Automatizacije, skripte, data pipelines |
 | API, integration, webhook, REST, GraphQL | Pipeline handles natively | API integracije sa proper error handling |
 | process, SOP, runbook, documentation | `imperium-brain:create-sop` | Biznis procesi i dokumentacija |
+| notes, obsidian, daily, weekly, memory | Obsidian vault | Read/write ~/Obsidian/Imperium/ |
+| peers, evaluator, generator, harness | `skills/peers/` | Claude Peers generator↔evaluator |
 
 ---
 

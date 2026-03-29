@@ -213,11 +213,17 @@ Every skill reads the brand — content, outreach, design, presenter all stay on
 |---------|-------------|
 | `/hp-auto` | Full autonomous — give spec, get everything built |
 | `/hp-go` | Collaborative — you decide at 3 key points, rest is auto |
+| `/hp-hackathon` | 24h hackathon sprint — 8 timed phases |
 | `/hp-plan` | Generate product spec + sprint contracts + brand |
 | `/hp-build` | Build features one by one from sprint contract |
-| `/hp-eval` | QA: static + Playwright + visual audit + grading |
+| `/hp-eval` | QA: static + Playwright + visual + backend quality audit |
 | `/hp-design` | UI design via Stitch MCP or manual spec |
 | `/hp-present` | Generate visuals: slides, demo video, LinkedIn images, PPTX |
+| `/hp-deploy` | Deploy to Vercel/Railway/Docker — build, test, deploy, verify |
+| `/hp-fix` | Debug + fix bugs with failing test → fix → verify flow |
+| `/hp-refactor` | Safe refactoring with test safety net |
+| `/hp-test` | Add test coverage to untested code |
+| `/hp-ci` | Generate GitHub Actions CI/CD pipeline |
 
 ---
 
@@ -322,6 +328,11 @@ Hyper-Pipeline orchestrates these tools (all optional — install what you need)
 | [**Stitch MCP**](https://github.com/davideast/stitch-mcp) | Google's AI UI design tool via MCP: generate screens from text, extract design systems, scaffold React components | `npx @_davideast/stitch-mcp init` |
 | [**Stitch Skills**](https://github.com/google-labs-code/stitch-skills) | Design + React component generation skills for Stitch: `stitch-design` for UI generation, `react:components` for Tailwind component scaffolding | `npx skills add google-labs-code/stitch-skills --global` |
 | **ffmpeg** | Audio/video processing: extract audio, convert formats, generate thumbnails, add captions | `apt install ffmpeg` |
+| [**Vercel CLI**](https://vercel.com/docs/cli) | Deploy Next.js apps to production with one command. Build → test → deploy → verify live | `npm i -g vercel` |
+| [**Supabase CLI**](https://supabase.com/docs/guides/cli) | Database, auth, storage, edge functions. Schema migrations, type generation, local dev | `npx supabase` |
+| [**Claude Peers MCP**](https://github.com/louislva/claude-peers-mcp) | Physical generator↔evaluator separation. Two terminals, instant messaging, true Anthropic harness | `git clone + bun install` |
+| [**OpenSpace**](https://github.com/HKUDS/OpenSpace) | Self-improving skills: autofix, autoimprove, autolearn. 46% fewer tokens over time | `pip install -e .` |
+| **Obsidian** | Project management vault — notes, tasks, daily logs, weekly reviews. Pipeline reads/writes to vault | Obsidian app + vault at `~/Obsidian/Imperium/` |
 
 ### Visual Generation Decision Tree
 

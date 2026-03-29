@@ -175,6 +175,7 @@ Need to process/convert media?
 |--------|---------|
 | **playwright** | Browser automation for QA (evaluator) |
 | **supabase** | Database management, auth, storage, edge functions |
+| **obsidian** | Notes, tasks, project management — vault at ~/Obsidian/Imperium/ |
 | **claude-peers** | Inter-session messaging for generator↔evaluator harness |
 | **crawl4ai** | Alternative web fetching |
 | **context7** | Live documentation lookup |
@@ -202,6 +203,8 @@ Need to process/convert media?
 | railway | npm global | Railway deploy |
 | claude-peers | ~/claude-peers-mcp | Generator↔Evaluator peer messaging |
 | openspace | ~/OpenSpace | Self-improving skills (autofix/autoimprove/autolearn) |
+| obsidian-vault-cli | npm global | Obsidian vault management from CLI |
+| mcp2cli | npm global | Convert MCP → CLI for 96-99% token savings |
 
 ---
 
