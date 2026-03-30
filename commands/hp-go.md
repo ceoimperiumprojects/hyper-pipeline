@@ -28,6 +28,21 @@ THIS PROCESS (Orchestrator)
 
 **WHY separation matters:** From Anthropic's research — "Out of the box, Claude is a poor QA agent. I watched it identify legitimate issues, then talk itself into deciding they weren't a big deal." Physical separation prevents this bias.
 
+## STEP 0: CONTEXT WIZARD (before anything else)
+
+**EXISTING PROJECT** (has code):
+- "Šta radimo?" → novi feature / bug fix / redesign / full build
+- "Imaš spec ili da opišeš?" → file path ili opis
+- "Scope?" → samo dev / dev + GTM / full pipeline
+
+**NEW PROJECT** (empty dir):
+- "Šta praviš?" → idea
+- "Ko su korisnici?" → target audience
+- "Tech stack?" → ili "da sam izaberem"
+- Brand wizard if no .hyper/brand.md
+
+Ask these with AskUserQuestion BEFORE proceeding.
+
 ## STEP 1: PLANNING (mandatory — NEVER skip)
 
 **You MUST generate these files before ANY building starts:**

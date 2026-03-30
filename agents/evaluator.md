@@ -256,10 +256,25 @@ When evaluating scripts, n8n workflows, automation pipelines, or pure backend:
 | Innovation | X/10 | [AI depth assessment] |
 
 ## Visual Audit Findings
+
+Evaluate ALL visual outputs — not just the app:
+- App pages (Playwright screenshots)
+- LinkedIn post images (Read tool to view PNG files)
+- Carousel slides (each frame)
+- Pitch deck slides (each rendered PNG)
+- Landing page screenshots
+- chatgpt-py generated hero images
+- ANY image file in content/ or docs/PRESENTATION/
+
+For EACH visual output: alignment, typography, color, spacing, brand match, AI slop detection.
+Score each 1-10. Any score ≤6 → FAIL → list for regeneration.
+
 | # | Output | Issue | Fix |
 |---|--------|-------|-----|
 | 1 | App: Dashboard | Header text off-center by 4px | Adjust ml-auto to mx-auto |
 | 2 | LinkedIn image | Text too small at 1200x1200 | Increase from 24px to 36px |
+| 3 | Carousel slide 3 | Brand colors wrong — using blue instead of brand teal | Update fill in Remotion composition |
+| 4 | Pitch slide 5 | Too much text, unreadable | Reduce to 3 bullet points max |
 
 ## Bugs Found
 | # | Severity | Description | Repro | Fix |
