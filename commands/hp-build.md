@@ -26,6 +26,13 @@ If either file is missing, tell the user: "Nema plana. Pokreni `/hp-plan` ili `/
 
 **NEVER start building without a plan. This is non-negotiable.**
 
+## Error Handling
+
+- If the dev server won't start, check port conflicts and dependency issues before retrying
+- If a tool or dependency is unavailable, use a fallback approach or skip that feature with a log entry
+- On HARD FAIL during build, revert to last working commit and report to user
+- All error handling must be explicit — silent failures are not acceptable
+
 ## Rules
 
 - **45-minute rule**: If stuck on a feature for 45 min, simplify and move on

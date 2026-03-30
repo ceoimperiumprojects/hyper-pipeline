@@ -72,6 +72,12 @@ Ask these BEFORE proceeding. Use AskUserQuestion tool for structured choices.
    - Show feature list, sprint structure, key decisions
    - User approves, modifies, or rejects
 
+## Error Handling
+
+- If the generator agent won't start or is unavailable, fallback to inline building within this process
+- If eval agent fails with HARD FAIL, log the error and retry once before escalating to user
+- Always handle errors gracefully — never leave the project in a broken state
+
 ## STEP 2: GIT SAFETY
 
 **NEW PROJECT (no .git/):**
