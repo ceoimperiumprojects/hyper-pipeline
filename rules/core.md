@@ -66,3 +66,9 @@ These rules apply to ALL pipeline modes (daily and hackathon).
 25. **Strategic compaction** — Compact at phase transitions, not mid-feature
 26. **Re-read docs/ after compaction** — State is in files, restore it
 27. **Keep 20%+ context headroom** — Don't fill the context window
+
+## Peer Visibility (Cross-Terminal)
+
+28. **Set summary on start** — `set_summary("[Project] — [Task] — [Phase]")` so other peers know what you're doing
+29. **Respond to peer messages IMMEDIATELY** — Pause current work, reply via `send_message`, then resume
+30. **Check messages every 15 min** — During long tasks, call `check_messages` periodically

@@ -1,19 +1,24 @@
 ---
-description: Run QA evaluation on the running app using Playwright. Invokes the hp-evaluator agent (Opus ultrathink). Tests every interaction, grades on 4 criteria, writes EVAL-REPORT.md.
+description: Run QA evaluation via SEPARATE skeptical agent. Spawns hp-evaluator with fresh context — no bias from generator. Tests every interaction, grades 4×10, writes EVAL-REPORT.md.
 ---
 
-# /hp-eval
+# /hp-eval — Skeptical Evaluator (Separate Agent)
 
-This command invokes the **hp-evaluator** agent to QA the running application.
+**CRITICAL: This command spawns the evaluator as a SEPARATE agent with fresh context.**
+
+The evaluator has NEVER seen the generator's work. It judges the OUTPUT only — like a skeptical code reviewer who only sees the deployed app.
 
 ## What This Command Does
 
-1. Reads `docs/SPRINT-CONTRACT.md` for acceptance criteria
-2. Starts navigating the running app via Playwright MCP
-3. Tests every interaction from the sprint contract
-4. Probes edge cases (invalid input, mobile, error states)
-5. Grades on 4 criteria: Functionality, Code Quality, UX/Design, Innovation
-6. Writes `docs/EVAL-REPORT.md` with scores, bugs, and recommendations
+1. Spawns a new Agent (fresh 200K context, no shared state with generator)
+2. Agent reads `docs/SPRINT-CONTRACT.md` for acceptance criteria
+3. Navigates the running app via Playwright MCP
+4. Tests every interaction from the sprint contract
+5. Probes edge cases (invalid input, mobile, error states, rapid clicks)
+6. Grades on 4 criteria: Functionality, Backend Quality, Visual Quality, Innovation
+7. Writes `docs/EVAL-REPORT.md` with scores, bugs, and recommendations
+
+**WHY separate:** From Anthropic — "I watched it identify legitimate issues, then talk itself into deciding they weren't a big deal." Physical separation prevents this.
 
 ## Prerequisites
 

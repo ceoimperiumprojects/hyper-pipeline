@@ -15,10 +15,16 @@ This command invokes the **hp-generator** agent to build features from the sprin
 5. Self-evaluates before marking sprint as complete
 6. Writes `docs/BUILD-LOG.md` with summary
 
-## Prerequisites
+## Prerequisites — HARD REQUIREMENTS
 
-- `docs/PLAN.md` must exist (run `/hp-plan` first)
+**STOP if these don't exist. Do NOT proceed without them:**
+
+- `docs/PLAN.md` must exist → run `/hp-plan` or `/imp plan` first
 - `docs/SPRINT-CONTRACT.md` must exist
+
+If either file is missing, tell the user: "Nema plana. Pokreni `/hp-plan` ili `/imp plan` prvo."
+
+**NEVER start building without a plan. This is non-negotiable.**
 
 ## Rules
 

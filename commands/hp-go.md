@@ -2,9 +2,9 @@
 description: Collaborative pipeline mode. You and Claude work together — you make key decisions, Claude handles the heavy lifting. Best for existing projects and when you want control. Automates what can be automated, asks you when it matters.
 ---
 
-# /hp-go — Collaborative Mode
+# /hp-go — Collaborative Mode (True Harness Design)
 
-You drive. Claude executes. Together you're unstoppable.
+You drive. Claude executes. Generator and Evaluator are PHYSICALLY SEPARATED (separate agents, fresh context).
 
 ## Usage
 
@@ -14,178 +14,180 @@ You drive. Claude executes. Together you're unstoppable.
 /hp-go                                        # Asks what you want to do
 ```
 
-## How It Works
+## Architecture: True Harness Design
 
 ```
-┌─ YOU ─────────────────────────────────────────────────────┐
-│                                                           │
-│  1. Describe what you want                                │
-│  2. Review and approve the plan    ← DECISION POINT 1 ✋  │
-│  3. Watch backend build, approve design ← DECISION 2 ✋   │
-│  4. Watch frontend build                                  │
-│  5. Review eval results            ← DECISION POINT 3 ✋  │
-│  6. Decide: fix, accept, or merge                         │
-│                                                           │
-└───────────────────────────────────────────────────────────┘
-
-┌─ CLAUDE ──────────────────────────────────────────────────┐
-│                                                           │
-│  0. 🤖 Scans codebase (auto)                             │
-│  1. 🤖 Generates plan + contract (auto)                   │
-│  2. ✋ Presents plan → WAITS for your approval            │
-│  3. 🤖 Creates feature branch (auto)                      │
-│  4. 🤖 Runs existing tests (baseline check)               │
-│  5. 🤖 Builds BACKEND features (auto)                     │
-│  6. 🤖 Generates design spec (auto)                       │
-│  7. ✋ Presents design → WAITS for approval               │
-│  8. 🤖 Builds FRONTEND features (auto)                    │
-│  9. 🤖 Evaluates with Playwright (auto)                   │
-│  10. 🤖 Runs existing tests AGAIN (regression check)      │
-│  11. ✋ Shows EVAL-REPORT → WAITS for your decision       │
-│      └→ "Fix bugs?" / "Accept and merge?"                │
-│  12. 🤖 Merges feature branch → main (if accepted)        │
-│                                                           │
-└───────────────────────────────────────────────────────────┘
-
-## Git Safety (Existing Projects)
-
-For existing projects, ALWAYS:
-1. Create a feature branch before building: `git checkout -b hp/[feature-name]`
-2. All commits go to the feature branch, never directly to main
-3. Run existing tests BEFORE building (baseline) and AFTER eval (regression)
-4. If rejected at any decision point: `git checkout main` — branch preserved for reference
-5. If accepted: merge feature branch to main
-```
+THIS PROCESS (Orchestrator)
+├─ STEP 1: Plan (inline — read-only analysis)
+├─ STEP 2: ✋ User approves plan
+├─ STEP 3: Spawn Generator Agent (SEPARATE process, fresh 200K context)
+├─ STEP 4: Spawn Evaluator Agent (SEPARATE process, fresh 200K context)
+├─ STEP 5: ✋ User reviews eval
+└─ STEP 6: Fix loop or merge
 ```
 
-## Decision Points (where YOU are involved)
+**WHY separation matters:** From Anthropic's research — "Out of the box, Claude is a poor QA agent. I watched it identify legitimate issues, then talk itself into deciding they weren't a big deal." Physical separation prevents this bias.
 
-### ✋ Decision 1: Plan Review
-After Planner generates PLAN.md + SPRINT-CONTRACT.md:
-- You see the full plan with features, architecture, sprint contracts
-- You can: **Approve** / **Modify** (change scope, priorities) / **Reject** (start over)
-- Claude asks: "Plan izgleda ovako. Šta kažeš?"
+## STEP 1: PLANNING (mandatory — NEVER skip)
 
-### ✋ Decision 2: Design Review (after backend, before frontend)
-**Timing:** This happens AFTER backend build, BEFORE frontend build.
-This ensures designs are based on real data shapes and API responses.
+**You MUST generate these files before ANY building starts:**
 
-Claude first asks: **"Stitch MCP ili ručni dizajn?"**
+1. Read existing codebase: structure, patterns, tech stack, conventions
+2. Read user's spec/prompt
+3. Generate `docs/PLAN.md`:
+   - Product overview, features (prioritized), architecture
+   - Sprint plan with feature grouping
+   - For existing projects: what to REUSE vs CREATE
+4. Generate `docs/SPRINT-CONTRACT.md`:
+   - Testable acceptance criteria for EVERY feature
+   - Format per behavior:
+     ```
+     - [ ] BEHAVIOR: [exact user action]
+       - TEST: [how to verify]
+       - EXPECTED: [exact expected result]
+     ```
 
-**If Stitch MCP:**
-- Claude generates screens via Stitch MCP tools
-- Presents screenshots + generated React components
-- User reviews and approves visual direction
+**HARD RULE: If `docs/PLAN.md` and `docs/SPRINT-CONTRACT.md` don't exist after this step, STOP. Do not proceed to building.**
 
-**If ručno (or Stitch not available):**
-- Claude asks detailed UI questions (screens, flow, colors, osećaj, layout, specijalni elementi)
-- Generates comprehensive `docs/DESIGN-SPEC.md` with screen layouts, component inventory, interaction patterns
-- Presents spec to user
-- User can: **Approve** (proceed to frontend) / **Modify** (update sections) / **Open Stitch** (stitch.withgoogle.com, design manually, bring back HTML/CSS)
+5. Present plan to user with AskUserQuestion:
+   - Show feature list, sprint structure, key decisions
+   - User approves, modifies, or rejects
 
-After approval, frontend build begins using the approved design spec + `.hyper/brand.md`
+## STEP 2: GIT SAFETY (for existing projects)
 
-### ✋ Decision 3: Eval Review
-After Evaluator grades the build:
-- You see EVAL-REPORT.md with scores (Functionality, Code Quality, UX, Innovation)
-- You see bug list with severity
-- You decide:
-  - "Fix critical bugs" → Generator fixes, re-eval
-  - "Looks good, ship it" → Done
-  - "Also change X" → Additional instructions
+```bash
+git checkout -b hp/[feature-name]
+```
 
-### Auto Parts (no user input needed)
-- Codebase scanning
-- Plan generation (you review, but don't write it)
-- Feature building (one by one, with commits)
-- Testing (TDD per feature, verification loop)
-- Eval execution (Playwright navigation + grading)
-- Bug fixing (if you approve the fix round)
+All work goes on feature branch. Never directly on main.
+Run existing tests as baseline check.
 
-## Existing Project Support
+## STEP 3: BUILD — Spawn Generator Agent
 
-`/hp-go` shines on existing projects because it:
+**CRITICAL: Use the Agent tool to spawn a SEPARATE generator process.**
 
-1. **Understands your codebase first**
-   - Scans structure, patterns, conventions
-   - Identifies what to REUSE vs what to CREATE
-   - Generates CODEBASE-CONTEXT.md
-
-2. **Respects existing architecture**
-   - Matches your component organization
-   - Uses your existing API patterns
-   - Follows your testing approach
-   - Reuses your utility functions
-
-3. **Asks smart questions**
-   - "You have an existing auth middleware. Should the new feature use it?"
-   - "Found 2 similar components. Should I extend ProductCard or create new?"
-   - "Your project uses Zustand for state. Want me to add a new store?"
-
-4. **Doesn't break things**
-   - Runs existing tests before AND after changes
-   - Generator never breaks the build
-   - Verification loop checks compatibility
-
-## Flow for Existing Projects
+Launch an Agent with this prompt (adapt the spec details):
 
 ```
-/hp-go "Add lead scoring to SimpleSurplus"
+You are the Hyper-Pipeline Generator. Build features from the plan.
 
-🤖 CODEBASE SCAN
-   "I see SimpleSurplus uses FastAPI + React + SQLite.
-    Found 15 existing API endpoints, 8 React components,
-    23 test files. Auth uses JWT middleware.
-    I'll build the new feature using these patterns."
+READ THESE FILES FIRST:
+- docs/PLAN.md — product spec
+- docs/SPRINT-CONTRACT.md — acceptance criteria
+- .hyper/brand.md — brand identity (if exists)
 
-🤖 PLAN
-   PLAN.md generated with:
-   - New endpoint: POST /api/leads/score (follows existing /api/leads/ pattern)
-   - New component: ScoreDisplay (follows existing component structure)
-   - New test: test_lead_scoring.py (follows existing test patterns)
-   - Reuses: existing Lead model, JWT auth, API error handling
+RULES:
+1. Build ONE feature at a time
+2. TDD: write test → make it pass → refactor
+3. Git commit after EACH feature: "feat: [description]"
+4. 45-minute rule: if stuck, simplify or cut. Log in docs/BLOCKERS.md
+5. NEVER break the build — app must run after every commit
+6. Self-evaluate before finishing: check your own work
+7. Write docs/BUILD-LOG.md with what you built
 
-✋ YOU REVIEW
-   "Looks good, but add batch scoring too"
-
-🤖 PLAN UPDATED + BUILD STARTS
-   feat: add scoring model fields → commit
-   feat: add POST /api/leads/score endpoint → commit
-   feat: add batch scoring endpoint → commit
-   feat: add ScoreDisplay component → commit
-   feat: add score integration tests → commit
-
-🤖 EVAL
-   Functionality: 9/10
-   Code Quality: 8/10 — "one function exceeds 50 lines"
-   UX: 7/10 — "no loading state on batch scoring"
-
-✋ YOU DECIDE
-   "Fix the loading state, the long function is fine for now"
-
-🤖 FIX + RE-EVAL → PASS ✓
+After building ALL features, write a summary in docs/BUILD-LOG.md.
 ```
+
+**Do NOT use isolation: "worktree" for the generator** — it needs to commit to the feature branch in the real repo.
+
+Wait for the generator agent to complete. Read `docs/BUILD-LOG.md` for results.
+
+## STEP 4: DESIGN REVIEW (if frontend) ✋
+
+After backend build, before frontend:
+- Ask user: "Stitch MCP ili ručni dizajn?"
+- Present design spec for approval
+- Then spawn generator again for frontend features
+
+## STEP 5: EVAL — Spawn Skeptical Evaluator Agent
+
+**CRITICAL: Use the Agent tool to spawn a SEPARATE evaluator process with FRESH context.**
+
+Launch an Agent with this prompt:
+
+```
+You are the Hyper-Pipeline Evaluator. You are SKEPTICAL by default.
+
+You have NEVER seen the generator's code or process. You judge the OUTPUT only.
+
+READ THESE FILES:
+- docs/SPRINT-CONTRACT.md — these are your acceptance criteria
+- docs/BUILD-LOG.md — what was supposedly built (verify, don't trust)
+
+YOUR JOB:
+1. PHASE A — Static Analysis:
+   - npx tsc --noEmit (compilation check)
+   - npm test (existing tests must pass)
+   - grep for console.log, TODO, FIXME, hardcoded secrets
+   - Check file sizes (>800 lines = flag)
+
+2. PHASE B — Runtime Testing (Playwright):
+   - Start the app
+   - Navigate EVERY page, screenshot each
+   - Test EVERY sprint contract behavior
+   - Test edge cases: empty inputs, errors, mobile (375px), rapid clicks
+   - Use REAL data, not "test123"
+
+3. PHASE C — Visual Audit (if frontend):
+   - Screenshot every page
+   - Check: alignment, typography, color, spacing, brand consistency
+   - AI Slop Detection: default shadcn = FAIL, purple gradients = FAIL
+   - Dribbble test: would this get engagement? If NO → max 6
+   - Framework test: can you tell which framework? If YES → max 5
+
+4. PHASE D — Grading (4 × 10 = 40):
+   - Functionality: does everything work E2E?
+   - Code/Backend Quality: API design, tests, security, architecture
+   - Visual Quality: design + originality + craft (≤6 = AUTO FAIL)
+   - Innovation: AI depth, creative decisions
+
+WRITE docs/EVAL-REPORT.md with:
+- Overall PASS/FAIL + score
+- Each behavior: PASS/FAIL
+- Bugs with severity, repro steps, suggested fix (file:line)
+- Visual audit per page with screenshots
+
+BE SKEPTICAL. When you find an issue, it IS an issue. Do not rationalize.
+Do not say "minor" when it affects UX. Do not approve mediocre work.
+```
+
+Wait for the evaluator agent to complete. Read `docs/EVAL-REPORT.md`.
+
+## STEP 6: DECISION ✋
+
+Present EVAL-REPORT to user:
+- Show overall score
+- Show PASS/FAIL per behavior
+- Show bug list
+- Show visual audit summary
+
+Ask user:
+- **"Fix bugs"** → Go back to STEP 3 (max 3 rounds)
+  - Check score trends: improving → REFINE, stagnating → PIVOT
+- **"Ship it"** → Merge feature branch to main
+- **"Also change X"** → Add to sprint contract, back to STEP 3
+
+```bash
+# On ship:
+git checkout main
+git merge hp/[feature-name]
+```
+
+## Decision Points Summary
+
+| Step | Who | What |
+|------|-----|------|
+| 1. Plan | ✋ You | Approve/modify/reject the plan |
+| 3. Build | 🤖 Agent | Separate generator builds features |
+| 4. Design | ✋ You | Approve design direction (if frontend) |
+| 5. Eval | 🤖 Agent | Separate skeptical evaluator grades |
+| 6. Decision | ✋ You | Fix / Ship / Change |
 
 ## vs Other Modes
 
-| | `/hp-auto` | `/hp-go` | Manual (`/hp-plan` + ...) |
+| | `/hp-auto` | `/hp-go` | `/hp-build` + `/hp-eval` |
 |--|-----------|---------|--------------------------|
-| User involvement | 0% | ~20% (key decisions) | 100% (every step) |
-| Best for | Clear specs, overnight | Existing projects, daily dev | Learning, complex decisions |
-| Speed | Fastest | Fast | Slowest |
-| Control | None | At decision points | Full |
-| Existing project support | Good | **Best** | Good |
-| Risk of wrong direction | Higher | Low (you course-correct) | Lowest |
-
-## When to Use
-
-- **Daily dev on existing projects** — You know the codebase, want Claude to do the work, but want approval on direction
-- **Features that touch multiple areas** — Claude handles the complexity, you verify
-- **When you want to learn** — See Claude's plan, understand the approach, then let it execute
-- **When you're not sure about requirements** — Collaborative discovery + execution
-
-## When NOT to Use
-
-- You have a crystal clear spec and don't want interruptions → `/hp-auto`
-- Quick one-off fix → `/build-fix` or `/tdd`
-- You want to control every file edited → manual `/hp-plan` + `/hp-build`
+| User involvement | 0% | ~20% | 100% |
+| Agent separation | Yes | **Yes** | Manual |
+| Best for | Clear specs | Daily dev, existing projects | Learning |
+| Planning enforced | Yes | **Yes** | Manual |
