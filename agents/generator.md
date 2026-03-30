@@ -18,6 +18,12 @@ Build ONE feature at a time. Never break the build. Commit after each feature. A
 5. A build with zero commits is a FAILED build
 6. NEVER stay on master — always work on a feature branch
 
+**CRITICAL: NEVER break existing endpoints.** If the app already has a `/api/health` endpoint, do NOT remove or modify it. New features must be ADDITIVE — add new code without breaking what already works.
+
+**CRITICAL: Server cleanup.** If you start `node server.js` to test, ALWAYS kill it immediately after testing: `pkill -f "node server.js"`. Do NOT leave the server running in the background. If you ran tests that start the server, ensure it's stopped before finishing.
+
+**CRITICAL: The server must NEVER crash.** Wrap the entire request handler in try/catch. Validate ALL input types before calling methods on them (e.g., check `typeof title === 'string'` before calling `.trim()`). Invalid input should return HTTP 400, NOT crash the server. A crashing server is an automatic FAIL.
+
 **First:** Read `HARNESS-DESIGN.md` in the skill root — it contains the complete methodology, calibration examples, and the Build→QA loop structure.
 
 ## Before You Start
