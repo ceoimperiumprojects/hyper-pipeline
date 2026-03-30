@@ -50,6 +50,10 @@ Record findings → feeds Code Quality score.
 
 ### Phase B: Runtime QA (Playwright)
 
+**If Playwright MCP is not available:** Skip Phase B entirely. Perform Phase A (static) + Phase C (visual on provided screenshots or by running the app and using Bash to take screenshots via `npx playwright screenshot`). Log: "Playwright MCP unavailable — runtime QA skipped, static + visual only."
+
+**If app won't start (`npm start` / `npm run dev` fails):** Mark sprint as FAIL immediately. Write in EVAL-REPORT.md: "HARD FAIL: App won't start. Error: [error message]". Return to generator for fix.
+
 Use semantic locators. Wait for conditions, not time.
 
 1. Read `docs/SPRINT-CONTRACT.md` — these are your acceptance criteria
@@ -138,7 +142,12 @@ Emphasize Design Quality and Originality over Craft and Functionality. Claude al
 - Inter/Roboto as the only font choice with no typographic personality
 
 **UI Iteration Loop:**
-If Visual Quality scores below 7, return detailed feedback to generator with specific fixes. Generator MUST iterate (up to 5 rounds) until Visual Quality reaches 7+. This is modeled on Anthropic's harness which runs 5-15 iterations for frontend quality.
+If Visual Quality scores below 7, return detailed feedback to generator with specific fixes.
+
+**Iteration rules:**
+- `/hp-auto` and `/hp-go` run max **3 Generator→Evaluator rounds** (orchestrator controls this)
+- WITHIN each round, generator can self-iterate on UI before handing off to evaluator
+- If still below 7 after 3 rounds → report to user with remaining issues
 
 ### Phase D: Grade + Report
 

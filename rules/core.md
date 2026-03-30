@@ -49,8 +49,8 @@ These rules apply to ALL pipeline modes (daily and hackathon).
 ## UI Quality (Anthropic Harness Design Standard)
 
 16. **No default framework styling** — Default shadcn/ui, Bootstrap, or any component library with zero customization is NEVER acceptable. Always customize beyond defaults.
-17. **Every screen must be distinctive** — Not recognizable as generic framework output. Apply Uncodixfy skill on every frontend build.
-18. **Bold aesthetic direction required** — Apply frontend-design skill. Every UI needs a clear conceptual direction — NOT "clean and modern" (meaningless AI slop).
+17. **Every screen must be distinctive** — Not recognizable as generic framework output. Apply `Skill({ skill: "frontend-design" })` on every frontend build.
+18. **Bold aesthetic direction required** — Every UI needs a clear conceptual direction from `.hyper/brand.md` — NOT "clean and modern" (meaningless AI slop).
 19. **Screenshot self-evaluation** — After building UI, take screenshot via Playwright and ask: "Would this get engagement on Dribbble? Can I tell which framework built this?" If either fails, iterate.
 20. **Visual Quality iteration loop** — If evaluator scores Visual Quality below 7, generator MUST iterate on UI (up to 5 rounds). Single-pass UI generation is NOT acceptable for production output.
 
@@ -67,8 +67,20 @@ These rules apply to ALL pipeline modes (daily and hackathon).
 26. **Re-read docs/ after compaction** — State is in files, restore it
 27. **Keep 20%+ context headroom** — Don't fill the context window
 
+## Error Handling
+
+28. **App won't start** → HARD FAIL. Log error in EVAL-REPORT.md. Generator must fix before anything else.
+29. **Playwright MCP unavailable** → Skip runtime QA. Static analysis + visual audit on screenshots only.
+30. **Plan files missing** → STOP. Do not build. Tell user to run `/hp-plan` first.
+31. **Build breaks after commit** → Revert last commit, log in BLOCKERS.md, simplify and retry.
+32. **Evaluator scores stagnate after 3 rounds** → Report remaining issues to user. Do not loop forever.
+
+## Brand Requirement
+
+33. **All UI projects MUST have `.hyper/brand.md`** — No brand = no frontend build. Auto-create if missing (wizard in /hp-go, auto-generate in /hp-auto).
+
 ## Peer Visibility (Cross-Terminal)
 
-28. **Set summary on start** — `set_summary("[Project] — [Task] — [Phase]")` so other peers know what you're doing
-29. **Respond to peer messages IMMEDIATELY** — Pause current work, reply via `send_message`, then resume
-30. **Check messages every 15 min** — During long tasks, call `check_messages` periodically
+34. **Set summary on start** — `set_summary("[Project] — [Task] — [Phase]")` so other peers know what you're doing
+35. **Respond to peer messages IMMEDIATELY** — Pause current work, reply via `send_message`, then resume
+36. **Check messages every 15 min** — During long tasks, call `check_messages` periodically

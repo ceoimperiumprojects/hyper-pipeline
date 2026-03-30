@@ -35,8 +35,9 @@ THIS PROCESS (Orchestrator)
 │     Include GTM phases if scope includes them
 │
 ├─ 4. GIT BRANCH
+│     New project: git init → git add . → git commit -m "init"
 │     git checkout -b hp/[feature-name]
-│     Run existing tests (baseline)
+│     Existing project: run existing tests (baseline)
 │
 ├─ 5. BUILD → EVAL LOOP (max 3 rounds)
 │     ├─ Spawn Generator Agent (separate process, fresh context)

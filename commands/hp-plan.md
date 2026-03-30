@@ -8,12 +8,15 @@ This command invokes the **hp-planner** agent to expand your request into a full
 
 ## What This Command Does
 
-1. Reads existing codebase to understand current state
+1. Reads existing codebase to understand current state (brownfield scan)
 2. Takes your short description and expands it into `docs/PLAN.md`:
    - Product overview, features (prioritized), architecture, sprint plan
    - AI integration points, demo script outline, innovation argument
+   - Visual Design Language (if UI project) — reads `.hyper/brand.md`
 3. Generates `docs/SPRINT-CONTRACT.md` with testable acceptance criteria
 4. Presents plan for your review before any building starts
+
+**HARD RULE: Both `docs/PLAN.md` AND `docs/SPRINT-CONTRACT.md` MUST be written to disk before this command completes. If planner fails to create either file, the command has FAILED. No building can start without both files.**
 
 ## When to Use
 

@@ -152,9 +152,11 @@ Feature not working after 45 min → simplify or cut. Log in `docs/BLOCKERS.md`:
 
 **This is the most important section. Generic UI = project FAIL.**
 
-Before writing ANY frontend component, apply these two skills:
-1. **Uncodixfy** (`~/.claude/skills/Uncodixfy/SKILL.md`) — Prevents generic AI-generated UI patterns. Think Linear, Raycast, Stripe, GitHub.
-2. **frontend-design** (skill: `frontend-design:frontend-design`) — Bold aesthetic direction. Every screen must be distinctive and memorable.
+Before writing ANY frontend component, apply the **frontend-design** skill:
+- Use the Skill tool: `Skill({ skill: "frontend-design" })`
+- This ensures bold aesthetic direction — every screen distinctive and memorable
+- Think Linear, Raycast, Stripe, GitHub — NOT generic AI-generated patterns
+- Read `.hyper/brand.md` for project-specific colors, fonts, voice
 
 **Anthropic's 4 Frontend Criteria (from Harness Design paper):**
 

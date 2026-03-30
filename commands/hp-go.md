@@ -39,9 +39,13 @@ THIS PROCESS (Orchestrator)
 - "Šta praviš?" → idea
 - "Ko su korisnici?" → target audience
 - "Tech stack?" → ili "da sam izaberem"
-- Brand wizard if no .hyper/brand.md
+- **Brand wizard** if no `.hyper/brand.md`:
+  1. "Koji arhetip? (Innovator/Sage/Hero/Creator/Explorer/Rebel/...)" → defines personality
+  2. "Primary color?" → or auto-pick from industry (blue=trust, green=growth, etc.)
+  3. "Mood?" → (bold, minimal, playful, editorial, brutalist, etc.)
+  4. Save to `.hyper/brand.md` — ALL visual decisions flow from this file
 
-Ask these with AskUserQuestion BEFORE proceeding.
+Ask these BEFORE proceeding. Use AskUserQuestion tool for structured choices.
 
 ## STEP 1: PLANNING (mandatory — NEVER skip)
 
@@ -68,14 +72,23 @@ Ask these with AskUserQuestion BEFORE proceeding.
    - Show feature list, sprint structure, key decisions
    - User approves, modifies, or rejects
 
-## STEP 2: GIT SAFETY (for existing projects)
+## STEP 2: GIT SAFETY
 
+**NEW PROJECT (no .git/):**
 ```bash
+git init
+git add . && git commit -m "init: project scaffold"
 git checkout -b hp/[feature-name]
 ```
 
+**EXISTING PROJECT:**
+```bash
+git checkout -b hp/[feature-name]
+# Run existing tests as baseline check
+npm test || echo "No tests yet"
+```
+
 All work goes on feature branch. Never directly on main.
-Run existing tests as baseline check.
 
 ## STEP 3: BUILD — Spawn Generator Agent
 

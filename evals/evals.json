@@ -3,20 +3,100 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Evo ti spec: napravi SaaS platformu za monitoring cena konkurencije. AI treba da prati cene na sajtovima konkurenata, šalje alerte kada se cena promeni, i generiše nedeljne izveštaje sa trendovima. Treba mi i landing page i 3 LinkedIn posta za launch. Target su e-commerce menadžeri u regionu. /hp-auto",
-      "expected_output": "Pipeline runs full auto: gathers brand/scope questions upfront, generates PLAN.md with brand section and sprint contracts, builds backend then frontend+AI, runs visual validation, creates landing page, generates LinkedIn posts with Remotion images, produces AUTO-SUMMARY.md",
+      "name": "full-auto-saas",
+      "prompt": "Napravi mi SaaS za tracking vremena za freelancere. Treba da ima dashboard gde vidim projekte i koliko sati sam radio na svakom, timer koji startuje/stopira, nedeljni izveštaj koji se auto-generiše, i invoice generator koji računa na osnovu hourly rate. Tech stack: Next.js + Prisma + SQLite. Treba i landing page i 3 LinkedIn posta za launch. Target su freelance developeri u regionu. /hp-auto",
+      "expected_output": "Pipeline runs full auto: generates PLAN.md with Visual Design Language section, SPRINT-CONTRACT.md with 20+ testable behaviors, brand.md with archetype and 10 colors, builds working Next.js app with timer/dashboard/reports/invoices, runs Build→QA loop (evaluator grades backend quality + visual quality), generates landing.html, 3 LinkedIn posts, AUTO-SUMMARY.md. No questions asked after Phase 0.",
+      "assertions": [
+        {"text": "PLAN.md exists with at least 8 sections including Visual Design Language", "type": "file_check"},
+        {"text": "SPRINT-CONTRACT.md exists with 20+ testable behaviors (User can...)", "type": "file_check"},
+        {"text": "brand.md exists with 10+ hex colors and archetype", "type": "file_check"},
+        {"text": "App builds without errors (npm run build passes)", "type": "build_check"},
+        {"text": "EVAL-REPORT.md exists with Backend Quality scores (5 sub-criteria)", "type": "file_check"},
+        {"text": "EVAL-REPORT.md includes Visual Quality Gate (Dribbble test, Framework test)", "type": "content_check"},
+        {"text": "landing.html exists as self-contained HTML file", "type": "file_check"},
+        {"text": "3 LinkedIn post files exist in content/posts/", "type": "file_check"},
+        {"text": "AUTO-SUMMARY.md exists listing all deliverables", "type": "file_check"},
+        {"text": "No console.log in production source code", "type": "code_quality"},
+        {"text": "Input validation (Zod) on API endpoints", "type": "code_quality"},
+        {"text": "Tests exist and pass for business logic", "type": "test_check"},
+        {"text": "Zero questions asked to user after initial spec", "type": "behavior_check"}
+      ],
       "files": []
     },
     {
       "id": 2,
-      "prompt": "Radim na SimpleSurplus projektu u ~/Desktop/Projekti/simple-surplus/. Treba mi lead scoring feature — kad unesem property adresu i value, AI treba da oceni lead od 1 do 100 na osnovu lokacije, vrednosti i tipa vlasnika. Mora da radi end-to-end sa testovima. Hajde zajedno da odradimo.",
-      "expected_output": "Pipeline runs in collab mode: scans existing codebase, generates plan respecting existing patterns, presents plan for review, builds feature by feature with TDD, runs evaluator with visual audit, presents EVAL-REPORT for user decision",
+      "name": "collab-existing-project",
+      "prompt": "Radim na postojećem Next.js projektu koji ima basic CRUD za korisnike. Treba mi nova feature: notification system — kad admin kreira novog korisnika ili menja status, svi ulogovani korisnici dobijaju real-time notifikaciju. Koristim Server-Sent Events. Hajde zajedno da odradimo. /hp-go",
+      "expected_output": "Pipeline runs in collab mode: scans existing codebase first (CODEBASE-CONTEXT.md), generates plan respecting existing patterns, creates feature branch (hp/notifications), presents plan at Decision Point 1, builds backend with SSE, presents design at Decision Point 2 (AFTER backend), runs evaluator at Decision Point 3, existing tests still pass (regression check), merge on accept.",
+      "assertions": [
+        {"text": "CODEBASE-CONTEXT.md generated with detected tech stack", "type": "file_check"},
+        {"text": "PLAN.md respects existing project patterns (mentions existing files)", "type": "content_check"},
+        {"text": "Feature branch created before building", "type": "git_check"},
+        {"text": "Existing tests pass before AND after changes", "type": "test_check"},
+        {"text": "3 decision points presented to user (plan, design, eval)", "type": "behavior_check"},
+        {"text": "Design review happens AFTER backend build, BEFORE frontend", "type": "behavior_check"},
+        {"text": "SPRINT-CONTRACT.md has testable behaviors for SSE notifications", "type": "content_check"},
+        {"text": "No new dependencies that conflict with existing stack", "type": "code_quality"}
+      ],
       "files": []
     },
     {
       "id": 3,
-      "prompt": "Imam hakaton za 2 dana u Crnoj Gori, tema je AI x Sustainability, Western Balkans fokus, 24 sata, solo sam. Treba mi ceo pipeline spreman — od brainstorminga do prezentacije. Pomozi mi da se pripremim.",
-      "expected_output": "Pipeline activates hackathon mode: verifies setup (MCP, Stitch, Remotion), presents 8-phase timeline, helps brainstorm with research, generates HACKATHON-CLAUDE.md template, prepares repo structure, explains each phase and user involvement points",
+      "name": "hackathon-mode",
+      "prompt": "Hakaton u Novom Sadu, tema je AI x Education, 24 sata imam, solo sam. Imam laptop sa Claude Code, Node, Python. Nemam Stitch MCP. Pomozi mi da pripremim sve i da pobedim. /hp-hackathon",
+      "expected_output": "Pipeline activates hackathon mode: generates 8-phase timeline with time budgets, verifies tools (Playwright, chatgpt-py, imperium-crawl), generates HACKATHON-CLAUDE.md for context reload, brainstorm framework with AI x Education ideas, Phase 0 checklist. Loads hackathon rules (demo-first, brainstorm cap 2.5h, 45-min rule).",
+      "assertions": [
+        {"text": "8-phase timeline with time budgets generated", "type": "content_check"},
+        {"text": "HACKATHON-CLAUDE.md template created", "type": "file_check"},
+        {"text": "Tool verification section present (what's available, what's not)", "type": "content_check"},
+        {"text": "Brainstorm framework with AI x Education ideas", "type": "content_check"},
+        {"text": "Hackathon rules referenced (demo-first, brainstorm cap, 45-min rule)", "type": "content_check"},
+        {"text": "Design fallback mentioned (no Stitch → DESIGN-SPEC.md)", "type": "content_check"}
+      ],
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "deploy-flow",
+      "prompt": "Imam gotovu Next.js aplikaciju u ovom folderu, build prolazi, testovi prolaze. Deployuj na Vercel, sve mora da radi u produkciji. /hp-deploy",
+      "expected_output": "Pipeline runs deploy: pre-flight checks (npm run build, npm test, no secrets in code), detects Vercel (Next.js project), runs vercel --prod, verifies production URL responds with 200, writes DEPLOY-LOG.md with URL + timestamp + git hash.",
+      "assertions": [
+        {"text": "Pre-flight build check executed", "type": "behavior_check"},
+        {"text": "Pre-flight test check executed", "type": "behavior_check"},
+        {"text": "Secrets check (no hardcoded keys)", "type": "code_quality"},
+        {"text": "Platform auto-detected as Vercel", "type": "behavior_check"},
+        {"text": "DEPLOY-LOG.md created with production URL", "type": "file_check"},
+        {"text": "Production URL verified (curl returns 200)", "type": "behavior_check"}
+      ],
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "fix-bug",
+      "prompt": "Imam bug — kad kliknem na 'Delete' dugme na product stranici, ništa se ne dešava. U konzoli vidim error 'TypeError: Cannot read properties of undefined'. Pronađi bug, napiši test koji ga reprodukuje, popravi ga i proveri da ništa drugo nije puklo. /hp-fix",
+      "expected_output": "Pipeline runs fix flow: reproduces bug (navigates to product page, clicks delete), traces root cause via stack trace + grep + git blame, writes FAILING test that reproduces the bug, fixes minimal code to make test pass, runs ALL tests to verify no regression, commits with fix: message and root cause description.",
+      "assertions": [
+        {"text": "Bug reproduction attempted (Playwright or manual)", "type": "behavior_check"},
+        {"text": "Root cause identified with file:line reference", "type": "content_check"},
+        {"text": "Failing test written that catches the bug", "type": "test_check"},
+        {"text": "Fix is minimal (not a refactor)", "type": "code_quality"},
+        {"text": "All tests pass after fix (not just the new one)", "type": "test_check"},
+        {"text": "Commit message includes root cause and fix description", "type": "git_check"}
+      ],
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "backend-quality-eval",
+      "prompt": "Imam REST API sa 8 endpoint-a (users CRUD, products CRUD). Testiraj kvalitet backend-a — API design, test coverage, security, performance, architecture. Daj mi detaljan eval report sa skorom. /hp-eval",
+      "expected_output": "Evaluator runs 4-phase evaluation with focus on Backend Quality (5 sub-criteria x 2 points = 10). Reports: API Design (RESTful? validation? error format?), Test Coverage (unit? integration? edge cases?), Security (no secrets? sanitization? auth?), Performance (indexed? N+1? pagination?), Architecture (separation? error middleware?). Uses few-shot calibration to score accurately. Hard fails if no tests or secrets in code.",
+      "assertions": [
+        {"text": "EVAL-REPORT.md has Backend Quality section with 5 sub-criteria", "type": "file_check"},
+        {"text": "Each sub-criterion scored X/2 with specific details", "type": "content_check"},
+        {"text": "Specific file:line references for issues found", "type": "content_check"},
+        {"text": "Hard fail check includes 'no tests' and 'secrets in code'", "type": "content_check"},
+        {"text": "Score calibration matches few-shot examples (not inflated)", "type": "quality_check"}
+      ],
       "files": []
     }
   ]
