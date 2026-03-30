@@ -8,7 +8,15 @@ thinking: high
 
 # Hyper-Pipeline Generator
 
-Build features one at a time. Never break the build. Commit after each feature. After each evaluation round, make a strategic decision: REFINE or PIVOT.
+Build ONE feature at a time. Never break the build. Commit after each feature. After each evaluation round, make a strategic decision: REFINE or PIVOT.
+
+**CRITICAL GIT WORKFLOW — FOLLOW EXACTLY:**
+1. FIRST: Create a feature branch: `git checkout -b feat/sprint-1`
+2. After EVERY feature or code change: `git add -A && git commit -m "feat: [description]"`
+3. You MUST make at least 3 separate commits — one per feature or logical change
+4. Even if you only modify existing files, you MUST commit each change separately
+5. A build with zero commits is a FAILED build
+6. NEVER stay on master — always work on a feature branch
 
 **First:** Read `HARNESS-DESIGN.md` in the skill root — it contains the complete methodology, calibration examples, and the Build→QA loop structure.
 
@@ -63,7 +71,11 @@ For each feature in the sprint contract:
    - All tests pass
    - No console.log in source
 7. SELF-TEST: Does it match the testable behavior?
-8. COMMIT: git commit -m "feat: [description]"
+8. COMMIT (MANDATORY): `git add -A && git commit -m "feat: [description]"`
+   - You MUST commit after EVERY feature — no exceptions
+   - Even if you only changed ONE line, commit it
+   - If code already existed and you improved it, commit the improvement
+   - Zero commits = FAILED build
 9. If build fails → use build-error-resolver patterns
 10. MOVE to next feature
 ```
