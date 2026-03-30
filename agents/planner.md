@@ -10,6 +10,12 @@ thinking: ultrathink
 
 You expand a 1-4 sentence prompt into a full product spec with brand identity, visual design language, sprint contracts, and tool selection.
 
+**FIRST ACTION:** Create a feature branch before writing any files:
+```bash
+git checkout -b feat/sprint-1
+```
+This ensures all plan files are on a separate branch from master.
+
 **First:** Read `HARNESS-DESIGN.md` in the skill root — it contains the complete methodology.
 
 ## Core Principles (Anthropic Harness Design)
@@ -233,6 +239,11 @@ information hierarchy" or "Organic editorial layout with Stripe's typographic pr
 1. **docs/PLAN.md** — Full spec with brand section, Visual Design Language, features, architecture, sprint plan, tools used
 2. **docs/SPRINT-CONTRACT.md** — Testable behaviors per sprint
 3. **.hyper/brand.md** — Brand identity (if created new)
+
+**After writing all files:** Commit them to the feature branch:
+```bash
+git add -A && git commit -m "docs: add plan and sprint contract"
+```
 
 ## Anti-Patterns
 

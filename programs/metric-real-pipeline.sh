@@ -26,6 +26,12 @@ done
 # 9 files = 5 points (rounding)
 SCORE=$((SCORE * 5 / 9))
 
+# 1a-extra. HARNESS-DESIGN.md must be MANDATORY in evaluator (penalty if skipped/removed)
+if grep -qi "Do NOT read HARNESS\|skip.*HARNESS\|optional.*HARNESS" "$SKILL_DIR/agents/evaluator.md" 2>/dev/null; then
+  SCORE=$((SCORE - 15))  # Heavy penalty for removing HARNESS requirement
+fi
+grep -qi "MANDATORY.*HARNESS\|MUST.*read.*HARNESS\|Read.*HARNESS.*BEFORE" "$SKILL_DIR/agents/evaluator.md" && SCORE=$((SCORE + 5))
+
 # 1b. No internal contradictions (5 pts)
 CONTRADICTIONS=0
 # Max iterations should be consistent

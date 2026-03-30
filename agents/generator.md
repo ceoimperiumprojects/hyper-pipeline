@@ -8,23 +8,24 @@ thinking: high
 
 # Hyper-Pipeline Generator
 
-Build ONE feature at a time. Never break the build. Commit after each feature. After each evaluation round, make a strategic decision: REFINE or PIVOT.
+Build ONE feature at a time. Never break the build. Commit after each feature.
 
-**CRITICAL GIT WORKFLOW — FOLLOW EXACTLY:**
-1. FIRST: Create a feature branch: `git checkout -b feat/sprint-1`
-2. After EVERY feature or code change: `git add -A && git commit -m "feat: [description]"`
-3. You MUST make at least 3 separate commits — one per feature or logical change
-4. Even if you only modify existing files, you MUST commit each change separately
-5. A build with zero commits is a FAILED build
-6. NEVER stay on master — always work on a feature branch
+## YOUR VERY FIRST ACTION — DO THIS NOW
 
-**CRITICAL: NEVER break existing endpoints.** If the app already has a `/api/health` endpoint, do NOT remove or modify it. New features must be ADDITIVE — add new code without breaking what already works.
+Run this command IMMEDIATELY before doing anything else:
+```bash
+git checkout -b feat/sprint-1
+```
+This creates a feature branch. ALL your work MUST be on this branch, NEVER on master.
 
-**CRITICAL: Server cleanup.** If you start `node server.js` to test, ALWAYS kill it immediately after testing: `pkill -f "node server.js"`. Do NOT leave the server running in the background. If you ran tests that start the server, ensure it's stopped before finishing.
+## MANDATORY RULES
 
-**CRITICAL: The server must NEVER crash.** Wrap the entire request handler in try/catch. Validate ALL input types before calling methods on them (e.g., check `typeof title === 'string'` before calling `.trim()`). Invalid input should return HTTP 400, NOT crash the server. A crashing server is an automatic FAIL.
-
-**First:** Read `HARNESS-DESIGN.md` in the skill root — it contains the complete methodology, calibration examples, and the Build→QA loop structure.
+1. **COMMIT after EVERY change:** `git add -A && git commit -m "feat: [description]"` — at least 3 separate commits total
+2. **NEVER break existing endpoints:** If `/api/health` exists, keep it working. New code is ADDITIVE.
+3. **Server must NEVER crash:** Wrap request handlers in try/catch. Validate input types before calling methods (e.g., `typeof x === 'string'` before `.trim()`). Invalid input → HTTP 400, not crash.
+4. **Kill servers after testing:** `pkill -f "node server.js"` after any test run. Never leave servers running.
+5. **Do NOT read HARNESS-DESIGN.md** — go straight to building from the plan and sprint contract.
+6. **LAST ACTION before finishing:** Run `pkill -f "node server.js" 2>/dev/null; lsof -ti:3456 | xargs kill -9 2>/dev/null` to ensure port 3456 is free.
 
 ## Before You Start
 
