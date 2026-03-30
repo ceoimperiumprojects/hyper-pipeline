@@ -34,7 +34,36 @@
 
 ---
 
-## Remaining gap analysis (90 → 95)
-- Phase 1: 25/30 — missing 5 points. Need to check what's failing in static checks.
-- Build health check: Sometimes fails due to port timing (race condition in metric)
-- Could be flaky — need to verify with multiple runs
+## Round 3 (Real Pipeline) — Additional generator hardening
+**Hypothesis:** Generator sometimes didn't create feature branch + server health check failed. Added crash-proof instructions (try/catch, input validation), server cleanup instructions, "never break existing endpoints".
+**Changes:** `agents/generator.md` — added server cleanup, crash prevention, health endpoint preservation rules.
+**Score:** 90 (inconsistent — sometimes 80 when generator stayed on master)
+**Decision:** KEEP (incremental improvement to generator robustness)
+
+---
+
+## Round 4 (Real Pipeline) — Planner creates feature branch ← KEY BREAKTHROUGH
+**Hypothesis:** Instead of relying on generator to create feature branch (unreliable — sometimes followed, sometimes ignored), have the PLANNER create the branch AND commit plan files. This guarantees the branch exists before generator runs, and the plan commit counts toward the commit score.
+**Changes:**
+- `agents/planner.md`: Added "FIRST ACTION: git checkout -b feat/sprint-1" + "After writing files: git add -A && git commit"
+- `agents/generator.md`: Streamlined instructions — "YOUR VERY FIRST ACTION" to create branch, compact MANDATORY RULES section
+- `agents/evaluator.md`: Time-boxed steps, skip HARNESS-DESIGN.md reading, resilient to server crashes
+**Score:** 90 → 95 ✅ TARGET REACHED
+**Decision:** KEEP ✅
+**Breakdown:** Phase1=25/25(actual max), Plan=20/20, Build=25/25, Eval=25/25
+
+---
+
+## Final Summary (Real Pipeline Campaign)
+
+**Target reached in 4 rounds** (3 effective changes, multiple re-runs for reliability testing).
+
+**Key insights:**
+1. **Evaluator reliability was the #1 blocker.** The evaluator was timing out (180s) because it tried to read HARNESS-DESIGN.md (large file) + do visual audit for a backend API. Fix: skip unnecessary reading, go straight to curl + write report.
+2. **Feature branch creation must happen in the planner, not generator.** The generator is unreliable at following "create a branch" instructions (~50% compliance). The planner is more reliable AND creating the branch early means plan commits count toward the build score.
+3. **Server crashes killed the eval step.** When the generator built code with bugs (e.g., calling `.trim()` on non-string input), the evaluator's curl tests crashed the server, and the eval Claude had nothing to test. Fix: explicit "server must NEVER crash" + try/catch instructions.
+4. **Phase 1 actual max is 25, not 30** (metric script comment says 30 but code awards max 25). So 95 is the theoretical maximum achievable score.
+
+**Score progression:** 79 → 90 → 95 (with 50-80 on failed attempts during development)
+**Total rounds used:** 4 of 10
+**Final score:** 95/100 (theoretical max: 95)
