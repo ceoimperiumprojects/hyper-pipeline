@@ -1,4 +1,4 @@
-# Program: Improve Hyper-Pipeline Skill
+# Program: Improve Hyper-Pipeline Skill (REAL metric)
 
 ## Target
 commands/hp-go.md
@@ -13,27 +13,36 @@ rules/core.md
 
 ## Metric
 ```bash
-cd /home/pavle/Desktop/Imperium-Hakaton-pipeline/hyper-pipeline && bash programs/metric-skill-quality.sh
+cd /home/pavle/Desktop/Imperium-Hakaton-pipeline/hyper-pipeline && bash programs/metric-real-pipeline.sh
 ```
 direction: higher
+baseline: 79
+target: 95
+
+NOTE: This metric ACTUALLY RUNS the pipeline on a test project.
+Phase 1 (30pts): Static quality — file existence, consistency, error docs, harness compliance, calibration
+Phase 2 (70pts): Real execution — planner creates PLAN.md (20pts), generator builds code (25pts), evaluator writes EVAL-REPORT (25pts)
 
 ## Goal
-Maximize skill quality score. Target: 90+
+Make the skill instructions SO CLEAR that when Claude reads them, it:
+1. ALWAYS creates docs/PLAN.md with real content (not empty/trivial)
+2. ALWAYS creates docs/SPRINT-CONTRACT.md with testable behaviors
+3. Generator ACTUALLY builds code and commits
+4. Evaluator ACTUALLY writes EVAL-REPORT.md with scores and findings
 
 ## Strategies
-- Clearer instructions that leave no ambiguity for the agent
-- Better calibration examples (specific scores with concrete descriptions)
-- Stronger enforcement language (HARD RULE, MUST, NEVER)
-- Remove contradictions between files
-- Add missing error handling paths
-- Better cross-references between commands and agents
-- Reduce redundancy (same info in multiple places = drift risk)
-- Tighter prompt engineering (less words, more precision)
+- Make instructions more EXPLICIT — tell Claude exactly what files to create, what format
+- Add concrete examples of PLAN.md content in the planner agent
+- Add concrete examples of SPRINT-CONTRACT.md behaviors in the planner
+- Make generator instructions clearer about commit workflow
+- Make evaluator instructions clearer about output format
+- Remove ambiguity — if something can be interpreted two ways, fix it
+- Ensure file paths are explicit (docs/PLAN.md not just "PLAN.md")
+- Add "FIRST THING YOU DO" instructions at the top of each agent
 
 ## Constraints
-- Keep each file under 400 lines (context budget)
-- Don't change the 4 grading criteria (Functionality, Backend, Visual, Innovation)
+- Keep each file under 400 lines
+- Don't change the 4 grading criteria
 - Don't change the core architecture (orchestrator → generator → evaluator)
-- Don't remove features, only improve how they're described
-- Maintain Serbian communication style references
-- Keep Harness Design principles intact
+- Don't remove features
+- Changes must improve REAL execution, not just keyword matching
